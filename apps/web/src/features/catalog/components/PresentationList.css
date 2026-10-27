@@ -1,0 +1,66 @@
+.pres-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pres-list__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0.625rem;
+  border: 1px solid var(--border, #e5e4e7);
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.pres-list__item--bottle {
+  background: linear-gradient(90deg, rgba(170, 59, 255, 0.06) 0%, #fafafa 60%);
+}
+
+.pres-list__item--decant {
+  background: #fafafa;
+}
+
+.pres-list__label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pres-list__format {
+  color: var(--text-h, #08060d);
+  font-weight: 500;
+}
+
+.pres-list__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border, #e5e4e7);
+  font-size: 0.75rem;
+  color: var(--text, #6b6375);
+}
+
+.pres-list__tag--bottle {
+  background: rgba(170, 59, 255, 0.1);
+  color: var(--text-h, #08060d);
+}
+
+.pres-list__price {
+  color: var(--text-h, #08060d);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pres-list__empty {
+  margin: 0;
+  color: var(--text, #6b6375);
+  font-size: 0.9rem;
+}
