@@ -8,9 +8,30 @@ export const DEMO_BRANDS: Brand[] = [
   { id: 'demo-brand-2', name: 'Atelier Ficticio' },
   { id: 'demo-brand-3', name: 'Oasis Árabe (Demo)' },
   { id: 'demo-brand-4', name: 'Nicho Ejemplo' },
+  { id: 'demo-brand-own', name: 'Huelepectacular' },
 ];
 
 export const DEMO_FRAGRANCES: Fragrance[] = [
+  {
+    id: 'demo-frag-own-1',
+    name: 'Bruma Ámbar',
+    brand: DEMO_BRANDS[4],
+    family: 'Ámbar amaderado',
+    notes: ['Ámbar', 'Bálsamo', 'Madera cálida'],
+    description: 'Fragancia de demostración de la línea propia Huelepectacular.',
+    isDemoData: true,
+    section: 'own',
+  },
+  {
+    id: 'demo-frag-own-2',
+    name: 'Sol de Azahar',
+    brand: DEMO_BRANDS[4],
+    family: 'Floral cítrico',
+    notes: ['Azahar', 'Bergamota', 'Almizcle suave'],
+    description: 'Fragancia de demostración de la línea propia Huelepectacular.',
+    isDemoData: true,
+    section: 'own',
+  },
   {
     id: 'demo-frag-1',
     name: 'Ámbar Cálido',
@@ -19,6 +40,7 @@ export const DEMO_FRAGRANCES: Fragrance[] = [
     notes: ['Ámbar', 'Vainilla', 'Cedro'],
     description: 'Fragancia de demostración con perfil cálido y envolvente.',
     isDemoData: true,
+    section: 'general',
   },
   {
     id: 'demo-frag-2',
@@ -28,6 +50,7 @@ export const DEMO_FRAGRANCES: Fragrance[] = [
     notes: ['Bergamota', 'Naranja dulce', 'Romero'],
     description: 'Fragancia de demostración ideal para uso diario.',
     isDemoData: true,
+    section: 'general',
   },
   {
     id: 'demo-frag-3',
@@ -37,6 +60,7 @@ export const DEMO_FRAGRANCES: Fragrance[] = [
     notes: ['Oud', 'Rosa', 'Pachuli'],
     description: 'Fragancia de demostración con carácter intenso.',
     isDemoData: true,
+    section: 'general',
   },
   {
     id: 'demo-frag-4',
@@ -46,10 +70,17 @@ export const DEMO_FRAGRANCES: Fragrance[] = [
     notes: ['Jazmín', 'Canela', 'Sándalo'],
     description: 'Fragancia de demostración de carácter nicho.',
     isDemoData: true,
+    section: 'general',
   },
 ];
 
 export const DEMO_PRESENTATIONS: ProductPresentation[] = [
+  // Línea propia - Bruma Ámbar
+  { id: 'demo-pres-own-1a', fragranceId: 'demo-frag-own-1', format: 'bottle', sizeMl: 100, priceArs: 39990, currency: 'ARS', isDemoData: true },
+  { id: 'demo-pres-own-1b', fragranceId: 'demo-frag-own-1', format: 'decant', sizeMl: 5, priceArs: 6990, currency: 'ARS', isDemoData: true },
+  // Línea propia - Sol de Azahar
+  { id: 'demo-pres-own-2a', fragranceId: 'demo-frag-own-2', format: 'bottle', sizeMl: 50, priceArs: 27990, currency: 'ARS', isDemoData: true },
+  { id: 'demo-pres-own-2b', fragranceId: 'demo-frag-own-2', format: 'decant', sizeMl: 5, priceArs: 5490, currency: 'ARS', isDemoData: true },
   // Ámbar Cálido
   { id: 'demo-pres-1a', fragranceId: 'demo-frag-1', format: 'bottle', sizeMl: 100, priceArs: 45990, currency: 'ARS', isDemoData: true },
   { id: 'demo-pres-1b', fragranceId: 'demo-frag-1', format: 'decant', sizeMl: 5, priceArs: 7990, currency: 'ARS', isDemoData: true },
@@ -69,6 +100,7 @@ export const DEMO_PRESENTATIONS: ProductPresentation[] = [
 export function getDemoCatalog(): FragranceWithPresentations[] {
   return DEMO_FRAGRANCES.map((frag) => ({
     ...frag,
+    section: frag.section || 'general',
     presentations: DEMO_PRESENTATIONS.filter((p) => p.fragranceId === frag.id).sort((a, b) => {
       // Botellas primero, luego decants por tamaño
       if (a.format === 'bottle' && b.format !== 'bottle') return -1;

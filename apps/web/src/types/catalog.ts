@@ -3,6 +3,8 @@
 
 export type ProductFormat = 'bottle' | 'decant' | 'other';
 
+export type CatalogSection = 'own' | 'general';
+
 export interface Brand {
   id: string;
   name: string;
@@ -16,6 +18,7 @@ export interface Fragrance {
   notes?: string[]; // notas opcionales
   description?: string;
   isDemoData: boolean;
+  section?: CatalogSection; // Sección: línea propia o catálogo general
 }
 
 export interface ProductPresentation {
@@ -37,6 +40,7 @@ export interface CatalogFilters {
   brandId: string | null;
   format: ProductFormat | 'all';
   family: string | null;
+  section?: CatalogSection | 'all';
 }
 
 export const DEFAULT_FILTERS: CatalogFilters = {
@@ -44,4 +48,5 @@ export const DEFAULT_FILTERS: CatalogFilters = {
   brandId: null,
   format: 'all',
   family: null,
+  section: 'all',
 };

@@ -7,6 +7,7 @@ const DEFAULT_FILTERS: CatalogFilters = {
   brandId: null,
   format: 'all',
   family: null,
+  section: 'all',
 };
 
 function normalize(str: string): string {
@@ -19,6 +20,10 @@ export class DemoCatalogRepository implements CatalogRepository {
   async list(filters?: Partial<CatalogFilters>): Promise<FragranceWithPresentations[]> {
     const f: CatalogFilters = { ...DEFAULT_FILTERS, ...(filters || {}) };
     let results = [...this.catalog];
+
+    if (f.section && f.section !== 'all') {
+      results = results.filter((item) => (item.section || 'general') === f.section);
+    }
 
     if (f.brandId) {
       results = results.filter((item) => item.brand.id === f.brandId);
