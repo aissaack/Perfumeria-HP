@@ -50,6 +50,12 @@ Cuando se cree el scaffold de la aplicación, actualiza esta sección con los co
 
 Como mínimo, al existir la aplicación, el proyecto debería ofrecer scripts copiables para desarrollo, compilación, lint y verificación de tipos. Agrega tests automatizados donde aporten valor y documenta su comando exacto.
 
+## Flujo de trabajo con Git
+
+Antes de crear o cambiar ramas, crear commits, integrar cambios o publicarlos, consulta `docs/GIT_WORKFLOW.md` y revisa el estado de Git.
+
+No crees commits ni ramas, cambies de rama, fusiones o publiques cambios sin autorización explícita del usuario.
+
 ## Convenciones
 
 - La interfaz visible para el cliente se escribe en español rioplatense natural, con importes formateados para Argentina (`es-AR`, moneda `ARS`).
