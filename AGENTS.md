@@ -49,7 +49,7 @@ npm run build
 npm run preview
 ```
 
-El script `typecheck` existe, pero queda pendiente revisar si comprueba los proyectos TypeScript referenciados. No hay script de tests. No afirmes que se ejecutaron verificaciones que no se hayan ejecutado.
+El script `typecheck` comprueba la aplicación y la configuración de Vite. No hay script de tests. No afirmes que se ejecutaron verificaciones que no se hayan ejecutado.
 
 Como mínimo, al existir la aplicación, el proyecto debería ofrecer scripts copiables para desarrollo, compilación, lint y verificación de tipos. Agrega tests automatizados donde aporten valor y documenta su comando exacto.
 

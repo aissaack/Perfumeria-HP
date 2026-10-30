@@ -21,7 +21,7 @@ npm run build
 npm run preview
 ```
 
-`typecheck` ejecuta el script definido actualmente, cuya cobertura de los proyectos TypeScript referenciados queda pendiente de revisión. No hay un script de tests automatizados.
+`typecheck` comprueba la aplicación y la configuración de Vite con TypeScript en modo estricto. No hay un script de tests automatizados.
 
 ## Evolución y documentación
 
