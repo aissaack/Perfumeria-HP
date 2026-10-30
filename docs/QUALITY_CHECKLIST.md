@@ -32,8 +32,8 @@
 ## Seguridad y datos
 
 - [ ] No se añadieron secretos ni `.env` real al control de versiones.
-- [ ] No se usó un endpoint de desarrollo de Pedix como producción.
-- [ ] No se conectó al catálogo real sin autorización y verificación.
+- [ ] No se integró Pedix ni se consumieron sus APIs; la consulta de su página pública es manual.
+- [ ] Los datos reales incorporados cuentan con autorización y verificación.
 - [ ] No hay checkout o pago falso presentado como real.
 - [ ] No se hizo un despliegue ni cambios en sistemas reales sin aprobación.
 

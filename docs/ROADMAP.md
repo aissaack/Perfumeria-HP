@@ -7,7 +7,7 @@
 - Acordar alcance y dirección visual.
 - Revisar el repositorio y definir estructura inicial mínima.
 - Confirmar qué assets de marca pueden reutilizarse.
-- Investigar si la tienda Pedix tiene un endpoint de producción disponible para lectura.
+- Consultar manualmente la página pública de Pedix como referencia de productos; no se realizará integración.
 
 **Salida:** plan de implementación acotado y decisiones registradas.
 
@@ -54,7 +54,7 @@ Posibles entregables, sujetos a definición de alcance:
 - Panel administrativo protegido y roles mínimos.
 - Operaciones de alta, edición, baja/archivado y disponibilidad de productos.
 - Validación de datos en servidor.
-- Importación/sincronización definida y documentada, si se acuerda.
+- Carga de catálogo propio definida y documentada, si se acuerda; sin sincronización con Pedix.
 - Registro y auditoría básica de cambios relevantes.
 
 No migrar ni eliminar el catálogo de Pedix sin un plan de importación, conciliación y reversión aprobado.
