@@ -4,8 +4,8 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { ProductCard } from '../features/catalog/components/ProductCard';
 import { demoCatalogRepository } from '../services/catalog/demoCatalogRepository';
-import type { CatalogFilters, FragranceWithPresentations, ProductFormat } from '../types/catalog';
-import { DEFAULT_FILTERS } from '../types/catalog';
+import type { CatalogFilters, FragranceCategory, FragranceWithPresentations, ProductFormat } from '../types/catalog';
+import { DEFAULT_FILTERS, FRAGRANCE_CATEGORY_LABELS } from '../types/catalog';
 import './CatalogPage.css';
 
 const BRAND_OPTIONS = [
@@ -37,36 +37,33 @@ interface CatalogPageProps {
 
 export function CatalogPage({ section = 'general', title, description }: CatalogPageProps = {}) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [filters, setFilters] = useState<CatalogFilters>(() => {
+  const [filters, setFilters] = useState<Omit<CatalogFilters, 'section'>>(() => {
     const query = searchParams.get('q') || '';
     const brandId = searchParams.get('brand');
     const family = searchParams.get('family');
+    const category = searchParams.get('category');
     const format = searchParams.get('format') as ProductFormat | 'all' | null;
     return {
       ...DEFAULT_FILTERS,
       query,
       brandId: brandId && brandId.trim() ? brandId : null,
       family: family && family.trim() ? family : null,
+      category: category === 'masculine' || category === 'feminine' || category === 'unisex' ? category : 'all',
       format: format === 'bottle' || format === 'decant' || format === 'all' ? format : 'all',
-      section,
     };
   });
   const [items, setItems] = useState<FragranceWithPresentations[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    setFilters((f) => {
-      if (f.section === section) return f;
-      return { ...f, section };
-    });
-  }, [section]);
+  const [loadedSection, setLoadedSection] = useState<CatalogPageProps['section']>();
+  const isLoading = loading || loadedSection !== section;
 
   useEffect(() => {
     const next = new URLSearchParams();
     if (filters.query.trim()) next.set('q', filters.query.trim());
     if (filters.brandId) next.set('brand', filters.brandId);
     if (filters.family) next.set('family', filters.family);
+    if (filters.category !== 'all') next.set('category', filters.category);
     if (filters.format !== 'all') next.set('format', filters.format);
     setSearchParams(next, { replace: true });
   }, [filters, setSearchParams]);
@@ -77,7 +74,7 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
       setLoading(true);
       setError(null);
       try {
-        const results = await demoCatalogRepository.list(filters);
+        const results = await demoCatalogRepository.list({ ...filters, section });
         if (!cancelled) {
           setItems(results);
         }
@@ -87,6 +84,7 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
         }
       } finally {
         if (!cancelled) {
+          setLoadedSection(section);
           setLoading(false);
         }
       }
@@ -95,13 +93,14 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
     return () => {
       cancelled = true;
     };
-  }, [filters]);
+  }, [filters, section]);
 
   const hasActiveFilters = useMemo(() => {
     return (
       filters.query.trim() !== '' ||
       filters.brandId !== null ||
       filters.family !== null ||
+      filters.category !== 'all' ||
       filters.format !== 'all'
     );
   }, [filters]);
@@ -223,6 +222,25 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
             </label>
 
             <label className="catalog-page__field">
+              <span className="catalog-page__field-label">Categoría</span>
+              <select
+                className="catalog-page__select"
+                value={filters.category}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  const category: FragranceCategory | 'all' =
+                    value === 'masculine' || value === 'feminine' || value === 'unisex' ? value : 'all';
+                  setFilters((f) => ({ ...f, category }));
+                }}
+              >
+                <option value="all">Todas</option>
+                <option value="masculine">{FRAGRANCE_CATEGORY_LABELS.masculine}</option>
+                <option value="feminine">{FRAGRANCE_CATEGORY_LABELS.feminine}</option>
+                <option value="unisex">{FRAGRANCE_CATEGORY_LABELS.unisex}</option>
+              </select>
+            </label>
+
+            <label className="catalog-page__field">
               <span className="catalog-page__field-label">Formato</span>
               <select
                 className="catalog-page__select"
@@ -249,14 +267,14 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
           )}
         </section>
 
-        <section className="catalog-page__results" aria-live="polite" aria-busy={loading}>
-          {loading && <p className="catalog-page__status">Cargando catálogo de demostración...</p>}
-          {!loading && error && (
+        <section className="catalog-page__results" aria-live="polite" aria-busy={isLoading}>
+          {isLoading && <p className="catalog-page__status">Cargando catálogo de demostración...</p>}
+          {!isLoading && error && (
             <div className="catalog-page__status catalog-page__status--error" role="alert">
               <p>Error: {error}</p>
             </div>
           )}
-          {!loading && !error && items.length === 0 && (
+          {!isLoading && !error && items.length === 0 && (
             <div className="catalog-page__status">
               <p>No se encontraron productos con los filtros aplicados.</p>
               {hasActiveFilters && (
@@ -266,7 +284,7 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
               )}
             </div>
           )}
-          {!loading && !error && items.length > 0 && (
+          {!isLoading && !error && items.length > 0 && (
             <div className="catalog-page__grid">
               {items.map((item) => (
                 <ProductCard key={item.id} item={item} />

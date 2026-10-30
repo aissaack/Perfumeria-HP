@@ -1,14 +1,7 @@
 import { DEMO_CATALOG } from '../../data/demo/catalog';
 import type { CatalogFilters, FragranceWithPresentations } from '../../types/catalog';
+import { DEFAULT_FILTERS } from '../../types/catalog';
 import type { CatalogRepository } from './catalogRepository';
-
-const DEFAULT_FILTERS: CatalogFilters = {
-  query: '',
-  brandId: null,
-  format: 'all',
-  family: null,
-  section: 'all',
-};
 
 function normalize(str: string): string {
   return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -31,6 +24,10 @@ export class DemoCatalogRepository implements CatalogRepository {
 
     if (f.family) {
       results = results.filter((item) => item.family === f.family);
+    }
+
+    if (f.category !== 'all') {
+      results = results.filter((item) => item.category === f.category);
     }
 
     if (f.format !== 'all') {

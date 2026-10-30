@@ -5,6 +5,14 @@ export type ProductFormat = 'bottle' | 'decant' | 'other';
 
 export type CatalogSection = 'own' | 'general';
 
+export type FragranceCategory = 'masculine' | 'feminine' | 'unisex';
+
+export const FRAGRANCE_CATEGORY_LABELS: Record<FragranceCategory, string> = {
+  masculine: 'Masculino',
+  feminine: 'Femenino',
+  unisex: 'Unisex',
+};
+
 export interface Brand {
   id: string;
   name: string;
@@ -14,6 +22,7 @@ export interface Fragrance {
   id: string;
   name: string;
   brand: Brand;
+  category: FragranceCategory;
   family?: string; // familia olfativa (opcional)
   notes?: string[]; // notas opcionales
   description?: string;
@@ -40,13 +49,14 @@ export interface CatalogFilters {
   brandId: string | null;
   format: ProductFormat | 'all';
   family: string | null;
+  category: FragranceCategory | 'all';
   section?: CatalogSection | 'all';
 }
 
-export const DEFAULT_FILTERS: CatalogFilters = {
+export const DEFAULT_FILTERS: Omit<CatalogFilters, 'section'> = {
   query: '',
   brandId: null,
   format: 'all',
   family: null,
-  section: 'all',
+  category: 'all',
 };
