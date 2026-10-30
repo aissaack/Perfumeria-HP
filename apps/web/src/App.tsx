@@ -8,8 +8,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/perfumes-huelepectacular" element={<CatalogPage section="own" title="Perfumes Huelepectacular" description="Línea propia de demostración. Productos exclusivos de Huelepectacular, separados del catálogo general." />} />
-        <Route path="/catalogo" element={<CatalogPage section="general" title="Catálogo" />} />
+        <Route path="/perfumes-huelepectacular" element={<CatalogPage key="own" section="own" title="Perfumes Huelepectacular" description="Línea propia de demostración. Productos exclusivos de Huelepectacular, separados del catálogo general." />} />
+        <Route path="/catalogo" element={<CatalogPage key="general" section="general" title="Catálogo" />} />
       </Routes>
     </BrowserRouter>
   );

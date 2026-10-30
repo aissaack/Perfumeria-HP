@@ -46,8 +46,8 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
     return {
       ...DEFAULT_FILTERS,
       query,
-      brandId: brandId && brandId.trim() ? brandId : null,
-      family: family && family.trim() ? family : null,
+      brandId: section === 'general' && brandId && brandId.trim() ? brandId : null,
+      family: section === 'general' && family && family.trim() ? family : null,
       category: category === 'masculine' || category === 'feminine' || category === 'unisex' ? category : 'all',
       format: format === 'bottle' || format === 'decant' || format === 'all' ? format : 'all',
     };
@@ -184,42 +184,46 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
             </label>
           </div>
 
-          <div className="catalog-page__filter-row catalog-page__filter-row--grid">
-            <label className="catalog-page__field">
-              <span className="catalog-page__field-label">Marca</span>
-              <select
-                className="catalog-page__select"
-                value={filters.brandId ?? ''}
-                onChange={(e) =>
-                  setFilters((f) => ({ ...f, brandId: e.target.value === '' ? null : e.target.value }))
-                }
-              >
-                <option value="">Todas</option>
-                {BRAND_OPTIONS.map((b) => (
-                  <option key={b.id} value={b.id}>
-                    {b.name}
-                  </option>
-                ))}
-              </select>
-            </label>
+          <div className={`catalog-page__filter-row catalog-page__filter-row--grid${section === 'own' ? ' catalog-page__filter-row--own' : ''}`}>
+            {section === 'general' && (
+              <>
+                <label className="catalog-page__field">
+                  <span className="catalog-page__field-label">Marca</span>
+                  <select
+                    className="catalog-page__select"
+                    value={filters.brandId ?? ''}
+                    onChange={(e) =>
+                      setFilters((f) => ({ ...f, brandId: e.target.value === '' ? null : e.target.value }))
+                    }
+                  >
+                    <option value="">Todas</option>
+                    {BRAND_OPTIONS.map((b) => (
+                      <option key={b.id} value={b.id}>
+                        {b.name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
 
-            <label className="catalog-page__field">
-              <span className="catalog-page__field-label">Familia olfativa</span>
-              <select
-                className="catalog-page__select"
-                value={filters.family ?? ''}
-                onChange={(e) =>
-                  setFilters((f) => ({ ...f, family: e.target.value === '' ? null : e.target.value }))
-                }
-              >
-                <option value="">Todas</option>
-                {FAMILY_OPTIONS.map((fam) => (
-                  <option key={fam} value={fam}>
-                    {fam}
-                  </option>
-                ))}
-              </select>
-            </label>
+                <label className="catalog-page__field">
+                  <span className="catalog-page__field-label">Familia olfativa</span>
+                  <select
+                    className="catalog-page__select"
+                    value={filters.family ?? ''}
+                    onChange={(e) =>
+                      setFilters((f) => ({ ...f, family: e.target.value === '' ? null : e.target.value }))
+                    }
+                  >
+                    <option value="">Todas</option>
+                    {FAMILY_OPTIONS.map((fam) => (
+                      <option key={fam} value={fam}>
+                        {fam}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </>
+            )}
 
             <label className="catalog-page__field">
               <span className="catalog-page__field-label">Categoría</span>
