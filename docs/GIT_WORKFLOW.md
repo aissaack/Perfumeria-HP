@@ -92,7 +92,7 @@ Este registro histórico conserva las ramas temporales aunque se eliminen. Los e
 | --- | --- | --- |
 | `main` | Versiones estables del proyecto | Permanente |
 | `develop` | Integración de funcionalidades | Permanente |
-| `feat/styles` | Estilos de la interfaz | Integrada, pendiente de eliminación |
-| `feat/catalog-filters` | Filtros del catálogo | Integrada, pendiente de eliminación |
-| `feat/huelepectacular-line-cards` | Línea propia, presentaciones e imágenes de ejemplo | Integrada, pendiente de eliminación |
-| `feat/product-detail-pages` | Detalle de producto, tarjetas compactas y paleta | Integrada, pendiente de eliminación |
+| `feat/styles` | Estilos de la interfaz | Integrada y eliminada |
+| `feat/catalog-filters` | Filtros del catálogo | Integrada y eliminada |
+| `feat/huelepectacular-line-cards` | Línea propia, presentaciones e imágenes de ejemplo | Integrada y eliminada |
+| `feat/product-detail-pages` | Detalle de producto, tarjetas compactas y paleta | Integrada y eliminada |
