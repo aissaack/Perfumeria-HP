@@ -21,10 +21,11 @@ export function OwnPresentationCard({ item, presentation }: OwnPresentationCardP
     <article className="own-presentation-card" aria-labelledby={titleId}>
       <div className="own-presentation-card__image">
         {showImage ? (
-          <img src={presentation.imageUrl} alt={`${item.name} — ${presentationLabel}`} onError={() => setFailedImageUrl(presentation.imageUrl ?? null)} />
+          <img src={presentation.imageUrl} alt={`Imagen de ejemplo de ${item.name} — ${presentationLabel}`} onError={() => setFailedImageUrl(presentation.imageUrl ?? null)} />
         ) : <span>Imagen pendiente</span>}
       </div>
       <div className="own-presentation-card__content">
+        {showImage && <p>Imagen de ejemplo · no representa el producto real</p>}
         <p className="own-presentation-card__brand">{item.brand.name}</p>
         <h2 id={titleId}>{item.name}</h2>
         <p className="own-presentation-card__format">{presentationLabel}</p>

@@ -13,10 +13,22 @@ export const HUELEPECTACULAR_FRAGRANCES: Fragrance[] = [
   { id: FICTIONAL_UNISEX_ID, name: 'unisex ejemplo', brand, category: 'unisex', family: 'Cítrico aromático', description: 'Producto ficticio de demostración; no representa un producto ni un lanzamiento real.', isDemoData: true, section: 'own' },
 ];
 
+const IMAGE_DIRECTORY = `${import.meta.env.BASE_URL}images/demo/perfumesHP_Ejemplos/`;
+
+const PRESENTATION_IMAGES: Record<string, { bottle: string; decant?: string }> = {
+  'demo-own-black-poison-twist': { bottle: '05-black-poison-twist-100ml.jpg' },
+  'demo-own-black-poison': { bottle: '02-black-poison-100ml.jpg', decant: 'BlackPoison_decant5mlEjemplo.jpeg' },
+  'demo-own-in-your-prime': { bottle: '06-InYourPrime-100ml.jpg', decant: 'InYourPrime_decant5mlEjemplo.jpeg' },
+  'demo-own-you-are-mine': { bottle: '03-you-are-mine-100ml.jpg', decant: 'YouAreMine_decant5mlEjemplo.jpeg' },
+  'demo-own-sexy-fever': { bottle: '01-sexy-fever-100ml.jpg', decant: 'SexyFever_decant5mlEjemplo.jpeg' },
+  [FICTIONAL_UNISEX_ID]: { bottle: '04-unisex-ejemplo-100ml.jpg', decant: 'Unisex_decant5mlEjemplo.jpeg' },
+};
+
 // Importes ficticios, definidos únicamente para la demostración.
 export const HUELEPECTACULAR_PRESENTATIONS: ProductPresentation[] = HUELEPECTACULAR_FRAGRANCES.flatMap((fragrance) => {
-  const bottle: ProductPresentation = { id: `${fragrance.id}-bottle`, fragranceId: fragrance.id, format: 'bottle', sizeMl: 100, priceArs: 39990, currency: 'ARS', isDemoData: true };
+  const images = PRESENTATION_IMAGES[fragrance.id];
+  const bottle: ProductPresentation = { id: `${fragrance.id}-bottle`, fragranceId: fragrance.id, format: 'bottle', sizeMl: 100, priceArs: 39990, currency: 'ARS', isDemoData: true, imageUrl: images?.bottle ? `${IMAGE_DIRECTORY}${images.bottle}` : undefined };
   if (fragrance.id === 'demo-own-black-poison-twist') return [bottle];
-  const decant: ProductPresentation = { id: `${fragrance.id}-decant`, fragranceId: fragrance.id, format: 'decant', sizeMl: 5, priceArs: 6990, currency: 'ARS', isDemoData: true };
+  const decant: ProductPresentation = { id: `${fragrance.id}-decant`, fragranceId: fragrance.id, format: 'decant', sizeMl: 5, priceArs: 6990, currency: 'ARS', isDemoData: true, imageUrl: images?.decant ? `${IMAGE_DIRECTORY}${images.decant}` : undefined };
   return [bottle, decant];
 });
