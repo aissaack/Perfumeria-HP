@@ -1,0 +1,78 @@
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useParams } from 'react-router';
+import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
+import { FICTIONAL_UNISEX_ID } from '../data/demo/huelepectacular-line';
+import { demoCatalogRepository } from '../services/catalog/demoCatalogRepository';
+import { FRAGRANCE_CATEGORY_LABELS } from '../types/catalog';
+import type { FragranceWithPresentations, ProductPresentation } from '../types/catalog';
+import { formatArs } from '../utils/formatCurrency';
+import './ProductDetailPage.css';
+
+function formatPresentation(presentation: ProductPresentation) {
+  const format = presentation.format === 'bottle' ? 'Botella completa' : presentation.format === 'decant' ? 'Decant' : 'Presentación';
+  return `${format}${presentation.sizeMl !== null ? ` · ${presentation.sizeMl} ml` : ''}`;
+}
+
+export function ProductDetailPage() {
+  const { presentationId = '' } = useParams();
+  const location = useLocation();
+  const requestedReturn = new URLSearchParams(location.search).get('volver');
+  const returnSearch = requestedReturn?.startsWith('?') ? requestedReturn : '';
+  const [item, setItem] = useState<FragranceWithPresentations | null>(null);
+  const [loadedId, setLoadedId] = useState<string | null>(null);
+  const [error, setError] = useState(false);
+  const [failedImageUrl, setFailedImageUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    demoCatalogRepository.getByPresentationId(presentationId).then((result) => {
+      if (!cancelled) { setItem(result?.section === 'own' ? result : null); setError(false); setLoadedId(presentationId); }
+    }).catch(() => {
+      if (!cancelled) { setItem(null); setError(true); setLoadedId(presentationId); }
+    });
+    return () => { cancelled = true; };
+  }, [presentationId]);
+
+  const presentation = item?.presentations.find((entry) => entry.id === presentationId);
+  const isLoading = loadedId !== presentationId;
+  const showImage = presentation?.imageUrl && presentation.imageUrl !== failedImageUrl;
+  const backLink = `/perfumes-huelepectacular${returnSearch}`;
+
+  return (
+    <div className="product-detail catalog-page--own-theme">
+      <Header demoLabel="Datos de demostración — Nivel 1" />
+      <main className="product-detail__main">
+        <Link className="product-detail__back" to={backLink}>← Volver a Perfumes Huelepectacular</Link>
+        {isLoading && <p role="status">Cargando producto de demostración...</p>}
+        {!isLoading && error && <p role="alert">No pudimos cargar el producto. Volvé al catálogo e intentá de nuevo.</p>}
+        {!isLoading && !error && (!item || !presentation) && <p role="status">No encontramos esta presentación en el catálogo de demostración.</p>}
+        {!isLoading && !error && item && presentation && (
+          <article className="product-detail__layout">
+            <div className="product-detail__media">
+              {showImage ? <img src={presentation.imageUrl} alt={`Imagen de ejemplo de ${item.name} — ${formatPresentation(presentation)}`} onError={() => setFailedImageUrl(presentation.imageUrl ?? null)} /> : <span>Imagen pendiente</span>}
+            </div>
+            <div className="product-detail__content">
+              {showImage && <p className="product-detail__note">Imagen de ejemplo · no representa el producto real</p>}
+              <p className="product-detail__brand">{item.brand.name}</p>
+              <h1>{item.name}</h1>
+              <p className="product-detail__format">{formatPresentation(presentation)}</p>
+              <div><span>Precio ficticio de demostración</span><strong className="product-detail__price">{formatArs(presentation.priceArs)}</strong></div>
+              <p>Categoría: {FRAGRANCE_CATEGORY_LABELS[item.category]} · Demo</p>
+              {item.family && <p>{item.id === FICTIONAL_UNISEX_ID ? 'Familia ficticia de demostración: ' : 'Familia orientativa, pendiente de validación: '}{item.family}</p>}
+              {item.description && <p>{item.description}</p>}
+              {item.notes && item.notes.length > 0 && <p>Notas: {item.notes.join(', ')}</p>}
+              {item.presentations.length > 1 && <section aria-labelledby="presentation-options">
+                <h2 id="presentation-options">Presentaciones</h2>
+                <div className="product-detail__options">
+                  {item.presentations.map((option) => <Link key={option.id} className="product-detail__option" aria-current={option.id === presentationId ? 'page' : undefined} to={{ pathname: `/perfumes-huelepectacular/producto/${encodeURIComponent(option.id)}`, search: location.search }}>{formatPresentation(option)}</Link>)}
+                </div>
+              </section>}
+            </div>
+          </article>
+        )}
+      </main>
+      <Footer />
+    </div>
+  );
+}

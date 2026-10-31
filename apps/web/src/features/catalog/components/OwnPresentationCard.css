@@ -1,80 +1,33 @@
 .own-presentation-card {
-  overflow: hidden;
   min-width: 0;
-  display: flex;
-  flex-direction: column;
-  background: var(--surface);
+  overflow: hidden;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
+  background: var(--surface);
   box-shadow: var(--shadow);
 }
-
+.own-presentation-card__link {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  color: var(--text-h);
+  text-decoration: none;
+}
+.own-presentation-card__link:focus-visible { outline: 3px solid var(--accent-strong); outline-offset: -3px; }
+.own-presentation-card:hover { border-color: var(--accent); box-shadow: 0 8px 24px -14px rgba(32, 42, 49, 0.45); }
 .own-presentation-card__image {
   position: relative;
   display: grid;
   place-items: center;
   aspect-ratio: 4 / 3;
-  background: linear-gradient(145deg, #fbf6e3, #f0e4be);
-  color: var(--text);
-  font-size: 0.9rem;
-}
-
-.own-presentation-card__image img {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.own-presentation-card__content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.5rem;
-  padding: 1.25rem;
-  flex: 1;
-}
-
-.own-presentation-card__content p,
-.own-presentation-card__content h2 {
-  margin: 0;
-}
-
-.own-presentation-card__content p {
-  color: var(--text);
-  font-size: 0.9rem;
-}
-
-.own-presentation-card__content h2 {
-  color: var(--text-h);
-  font-size: 1.3rem;
-}
-
-.own-presentation-card__content .own-presentation-card__brand {
-  color: var(--accent);
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.own-presentation-card__content .own-presentation-card__format {
-  color: var(--text-h);
-  font-weight: 600;
-}
-
-.own-presentation-card__price {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  margin-top: auto;
-  padding-top: 0.75rem;
+  background: #e9eef0;
   color: var(--text);
   font-size: 0.8rem;
 }
-
-.own-presentation-card__price strong {
-  color: var(--text-h);
-  font-size: 1.15rem;
-}
+.own-presentation-card__image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.own-presentation-card__content { display: flex; flex: 1; flex-direction: column; gap: 0.2rem; padding: 0.75rem; }
+.own-presentation-card__content h2, .own-presentation-card__content p { margin: 0; }
+.own-presentation-card__content h2 { font-size: 1rem; line-height: 1.3; overflow-wrap: anywhere; }
+.own-presentation-card__content p, .own-presentation-card__disclaimer, .own-presentation-card__price-label { color: var(--text); font-size: 0.75rem; line-height: 1.4; }
+.own-presentation-card__price-label { margin-top: auto; padding-top: 0.4rem; }
+.own-presentation-card__content strong { font-size: 1rem; }

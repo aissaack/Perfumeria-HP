@@ -1,19 +1,20 @@
 /* Tema exclusivo para /perfumes-huelepectacular */
 
 .catalog-page--own-theme {
-  --bg: #fbf6e3;
-  --bg-subtle: #fbf6e3;
+  --bg: #f3f5f6;
+  --bg-subtle: #e9eef0;
   --surface: #ffffff;
-  --text: #75684c;
-  --text-h: #2b2415;
-  --border: #e6dab5;
-  --shadow: 0 10px 40px -20px rgba(117, 104, 76, 0.25), 0 6px 30px -24px rgba(138, 106, 28, 0.25);
-  --accent: #8a6a1c;
-  --accent-strong: #8a6a1c;
-  --accent-bg: rgba(246, 224, 140, 0.25);
-  background: radial-gradient(1200px 800px at 20% -10%, rgba(240, 228, 190, 0.35) 0%, transparent 60%),
-    radial-gradient(1000px 700px at 80% 0%, rgba(255, 255, 255, 0.8) 0%, transparent 55%),
-    #fbf6e3;
+  --text: #4f5f68;
+  --text-h: #202a31;
+  --border: #c5cfd4;
+  --control-border: #758993;
+  --shadow: 0 6px 20px -14px rgba(32, 42, 49, 0.3);
+  --accent: #405a6b;
+  --accent-strong: #405a6b;
+  --accent-bg: #e5ecef;
+  --radius-lg: 8px;
+  --radius-md: 6px;
+  background: var(--bg);
   color: var(--text);
 }
 
@@ -68,7 +69,7 @@
 .catalog-page--own-theme .own-hero__panel {
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
-  background: linear-gradient(180deg, #ffffff 0%, #fbf6e3 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #edf1f3 100%);
 }
 
 .catalog-page--own-theme .own-hero__panel--violet::before,
@@ -76,7 +77,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(400px 160px at 50% 0%, rgba(201, 162, 58, 0.08) 0%, transparent 70%);
+  background: radial-gradient(400px 160px at 50% 0%, rgba(64, 90, 107, 0.06) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -103,7 +104,7 @@
 
 .catalog-page--own-theme .own-hero__panel-glow--violet,
 .catalog-page--own-theme .own-hero__panel-glow--crimson {
-  background: radial-gradient(500px 220px at 50% 0%, rgba(240, 228, 190, 0.35) 0%, transparent 70%);
+  background: radial-gradient(500px 220px at 50% 0%, rgba(64, 90, 107, 0.06) 0%, transparent 70%);
 }
 
 .catalog-page--own-theme .catalog-page__intro {
@@ -111,7 +112,7 @@
 }
 
 .catalog-page--own-theme .catalog-page__filters {
-  background: #fbf6e3;
+  background: var(--surface);
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
 }
@@ -124,14 +125,14 @@
 .catalog-page--own-theme .catalog-page__select {
   background: var(--surface);
   color: var(--text-h);
-  border: 1px solid var(--border);
+  border: 1px solid var(--control-border);
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
 }
 
 .catalog-page--own-theme .catalog-page__select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238a6a1c' d='M1.41 0L6 4.58L10.59 0L12 1.41L6 7.41L0 1.41L1.41 0Z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23405a6b' d='M1.41 0L6 4.58L10.59 0L12 1.41L6 7.41L0 1.41L1.41 0Z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   padding-right: 2rem;
@@ -149,7 +150,7 @@
 .catalog-page--own-theme .catalog-page__input:focus,
 .catalog-page--own-theme .catalog-page__select:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 1px rgba(138, 106, 28, 0.25);
+  box-shadow: 0 0 0 1px rgba(64, 90, 107, 0.25);
   outline: none;
 }
 
@@ -167,7 +168,7 @@
 .catalog-page--own-theme .catalog-page__reset {
   background: var(--surface);
   color: var(--text-h);
-  border: 1px solid var(--border);
+  border: 1px solid var(--control-border);
 }
 
 .catalog-page--own-theme .catalog-page__reset:hover,
@@ -216,12 +217,12 @@
 }
 
 .catalog-page--own-theme .pres-list__item {
-  background: #fbf6e3;
+  background: var(--bg-subtle);
   border: 1px solid var(--border);
 }
 
 .catalog-page--own-theme .pres-list__item--bottle {
-  background: linear-gradient(90deg, #f0e4be 0%, #fbf6e3 70%);
+  background: var(--bg-subtle);
 }
 
 .catalog-page--own-theme .pres-list__format {
@@ -258,7 +259,7 @@
 }
 
 .catalog-page--own-theme .hp-footer {
-  background: #fbf6e3;
+  background: var(--bg);
   border-top: 1px solid var(--border);
 }
 

@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { FICTIONAL_UNISEX_ID } from '../../../data/demo/huelepectacular-line';
-import { FRAGRANCE_CATEGORY_LABELS } from '../../../types/catalog';
+import { Link } from 'react-router';
 import type { FragranceWithPresentations, ProductPresentation } from '../../../types/catalog';
 import { formatArs } from '../../../utils/formatCurrency';
 import './OwnPresentationCard.css';
@@ -8,35 +7,32 @@ import './OwnPresentationCard.css';
 interface OwnPresentationCardProps {
   item: FragranceWithPresentations;
   presentation: ProductPresentation;
+  returnSearch: string;
 }
 
-export function OwnPresentationCard({ item, presentation }: OwnPresentationCardProps) {
+export function OwnPresentationCard({ item, presentation, returnSearch }: OwnPresentationCardProps) {
   const [failedImageUrl, setFailedImageUrl] = useState<string | null>(null);
   const format = presentation.format === 'bottle' ? 'Botella completa' : presentation.format === 'decant' ? 'Decant' : 'Presentación';
   const presentationLabel = `${format}${presentation.sizeMl !== null ? ` · ${presentation.sizeMl} ml` : ''}`;
-  const titleId = `presentation-${presentation.id}-title`;
   const showImage = presentation.imageUrl && presentation.imageUrl !== failedImageUrl;
+  const params = new URLSearchParams();
+  if (returnSearch) params.set('volver', returnSearch);
+  const search = params.toString();
 
   return (
-    <article className="own-presentation-card" aria-labelledby={titleId}>
-      <div className="own-presentation-card__image">
-        {showImage ? (
-          <img src={presentation.imageUrl} alt={`Imagen de ejemplo de ${item.name} — ${presentationLabel}`} onError={() => setFailedImageUrl(presentation.imageUrl ?? null)} />
-        ) : <span>Imagen pendiente</span>}
-      </div>
-      <div className="own-presentation-card__content">
-        {showImage && <p>Imagen de ejemplo · no representa el producto real</p>}
-        <p className="own-presentation-card__brand">{item.brand.name}</p>
-        <h2 id={titleId}>{item.name}</h2>
-        <p className="own-presentation-card__format">{presentationLabel}</p>
-        <p>Categoría: {FRAGRANCE_CATEGORY_LABELS[item.category]} · Demo</p>
-        {item.family && <p>{item.id === FICTIONAL_UNISEX_ID ? 'Familia ficticia de demostración: ' : 'Familia orientativa, pendiente de validación: '}{item.family}</p>}
-        {item.description && <p>{item.description}</p>}
-        <div className="own-presentation-card__price">
-          <span>Precio ficticio de demostración</span>
+    <article className="own-presentation-card">
+      <Link className="own-presentation-card__link" to={{ pathname: `/perfumes-huelepectacular/producto/${encodeURIComponent(presentation.id)}`, search: search ? `?${search}` : '' }} aria-label={`Ver detalle de ${item.name}, ${presentationLabel}`}>
+        <div className="own-presentation-card__image">
+          {showImage ? <img src={presentation.imageUrl} alt="" onError={() => setFailedImageUrl(presentation.imageUrl ?? null)} /> : <span>Imagen pendiente</span>}
+        </div>
+        <div className="own-presentation-card__content">
+          {showImage && <span className="own-presentation-card__disclaimer">Imagen de ejemplo</span>}
+          <h2>{item.name}</h2>
+          <p>{presentationLabel}</p>
+          <span className="own-presentation-card__price-label">Precio ficticio</span>
           <strong>{formatArs(presentation.priceArs)}</strong>
         </div>
-      </div>
+      </Link>
     </article>
   );
 }

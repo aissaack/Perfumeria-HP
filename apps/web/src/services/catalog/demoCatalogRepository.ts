@@ -54,6 +54,11 @@ export class DemoCatalogRepository implements CatalogRepository {
     const found = this.catalog.find((item) => item.id === id);
     return found ? { ...found } : null;
   }
+
+  async getByPresentationId(id: string): Promise<FragranceWithPresentations | null> {
+    const found = this.catalog.find((item) => item.presentations.some((presentation) => presentation.id === id));
+    return found ? { ...found } : null;
+  }
 }
 
 export const demoCatalogRepository = new DemoCatalogRepository();

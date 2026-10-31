@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router';
+import { useLocation, useSearchParams } from 'react-router';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { ProductCard } from '../features/catalog/components/ProductCard';
@@ -37,6 +37,7 @@ interface CatalogPageProps {
 }
 
 export function CatalogPage({ section = 'general', title, description }: CatalogPageProps = {}) {
+  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState<Omit<CatalogFilters, 'section'>>(() => {
     const query = searchParams.get('q') || '';
@@ -290,12 +291,12 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
             </div>
           )}
           {!isLoading && !error && items.length > 0 && (
-            <div className="catalog-page__grid">
+            <div className={`catalog-page__grid${section === 'own' ? ' catalog-page__grid--own' : ''}`}>
               {section === 'own'
                 ? items.flatMap((item) => item.presentations
                     .filter((presentation) => filters.format === 'all' || presentation.format === filters.format)
                     .map((presentation) => (
-                      <OwnPresentationCard key={presentation.id} item={item} presentation={presentation} />
+                      <OwnPresentationCard key={presentation.id} item={item} presentation={presentation} returnSearch={location.search} />
                     )))
                 : items.map((item) => <ProductCard key={item.id} item={item} />)}
             </div>
