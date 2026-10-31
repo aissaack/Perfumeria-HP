@@ -4,7 +4,7 @@ Prototipo de rediseño de una perfumería, con una evolución prevista hacia una
 
 ## Estado actual
 
-El Nivel 1 está en desarrollo en `apps/web`: incluye portada, catálogo general y sección de línea propia, búsqueda, filtros y presentaciones con precios de demostración. Los datos no representan precios ni disponibilidad reales. La línea propia documentada en `docs/catalogo/LINEA_HUELEPECTACULAR.md` todavía no está incorporada a la aplicación. La vista de detalle y las imágenes de productos siguen pendientes.
+El Nivel 1 está en desarrollo en `apps/web`: incluye portada, catálogo general y sección de línea propia, búsqueda, filtros y presentaciones con precios ficticios de demostración. La línea propia incluye los productos documentados en `docs/catalogo/LINEA_HUELEPECTACULAR.md` y un ejemplo ficticio; las familias reales son orientativas y están pendientes de validación. Los precios y la disponibilidad no son datos en vivo. La vista de detalle y las imágenes de productos siguen pendientes.
 
 La tienda será independiente de Pedix. Su página pública se consulta manualmente como referencia de productos; no habrá integración, API ni sincronización con Pedix. Ver [ADR-003](docs/decisions/ADR-003-independent-store.md).
 

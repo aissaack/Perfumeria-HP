@@ -35,6 +35,7 @@ export interface ProductPresentation {
   fragranceId: string;
   format: ProductFormat;
   sizeMl: number | null;
+  imageUrl?: string;
   priceArs: number; // precio ficticio para demo
   currency: 'ARS';
   isDemoData: boolean;

@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { ProductCard } from '../features/catalog/components/ProductCard';
+import { OwnPresentationCard } from '../features/catalog/components/OwnPresentationCard';
 import { demoCatalogRepository } from '../services/catalog/demoCatalogRepository';
 import type { CatalogFilters, FragranceCategory, FragranceWithPresentations, ProductFormat } from '../types/catalog';
 import { DEFAULT_FILTERS, FRAGRANCE_CATEGORY_LABELS } from '../types/catalog';
@@ -128,7 +129,7 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
             <div className="own-hero__header">
               <p className="own-hero__eyebrow">Colección exclusiva · Huelepectacular</p>
               <h2 className="own-hero__title">Perfumes Huelepectacular</h2>
-              <p className="own-hero__subtitle">Dos creaciones propias con personalidades distintas, unidas por una misma intención.</p>
+              <p className="own-hero__subtitle">Conocé la línea propia y explorá sus presentaciones en esta demostración.</p>
             </div>
             <div className="own-hero__grid">
               <article className="own-hero__panel own-hero__panel--violet">
@@ -137,8 +138,8 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
                     <span className="own-hero__pill">Creación propia</span>
                     <span className="own-hero__pill own-hero__pill--gold">Línea exclusiva</span>
                   </div>
-                  <h3 className="own-hero__panel-title">Bruma Ámbar</h3>
-                  <p className="own-hero__panel-subtitle">Perfil cálido y envolvente · Demostración</p>
+                  <h3 className="own-hero__panel-title">Línea propia</h3>
+                  <p className="own-hero__panel-subtitle">Cinco fragancias documentadas · Demostración</p>
                 </div>
                 <div className="own-hero__panel-glow own-hero__panel-glow--violet" aria-hidden="true"></div>
               </article>
@@ -151,8 +152,8 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
                     <span className="own-hero__pill">Creación propia</span>
                     <span className="own-hero__pill own-hero__pill--gold">Línea exclusiva</span>
                   </div>
-                  <h3 className="own-hero__panel-title">Sol de Azahar</h3>
-                  <p className="own-hero__panel-subtitle">Perfil floral cítrico luminoso · Demostración</p>
+                  <h3 className="own-hero__panel-title">Explorá formatos</h3>
+                  <p className="own-hero__panel-subtitle">Botellas y decants · Precios ficticios</p>
                 </div>
                 <div className="own-hero__panel-glow own-hero__panel-glow--crimson" aria-hidden="true"></div>
               </article>
@@ -290,9 +291,13 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
           )}
           {!isLoading && !error && items.length > 0 && (
             <div className="catalog-page__grid">
-              {items.map((item) => (
-                <ProductCard key={item.id} item={item} />
-              ))}
+              {section === 'own'
+                ? items.flatMap((item) => item.presentations
+                    .filter((presentation) => filters.format === 'all' || presentation.format === filters.format)
+                    .map((presentation) => (
+                      <OwnPresentationCard key={presentation.id} item={item} presentation={presentation} />
+                    )))
+                : items.map((item) => <ProductCard key={item.id} item={item} />)}
             </div>
           )}
         </section>

@@ -18,11 +18,11 @@ function formatLabel(p: ProductPresentation): string {
 
 export function PresentationList({ presentations }: PresentationListProps) {
   if (presentations.length === 0) {
-    return <p className="pres-list__empty">Sin presentaciones disponibles.</p>;
+    return <p className="pres-list__empty">Sin presentaciones registradas en la demo.</p>;
   }
 
   return (
-    <ul className="pres-list" aria-label="Presentaciones disponibles">
+    <ul className="pres-list" aria-label="Presentaciones y precios ficticios de demostración">
       {presentations.map((p) => (
         <li key={p.id} className={`pres-list__item pres-list__item--${p.format}`}>
           <div className="pres-list__label">

@@ -11,7 +11,7 @@
 
 Este documento registra únicamente los perfumes identificados como parte de la línea propia **Huelepectacular** en la categoría pública «Perfumes HUELEPECTACULAR». No incluye perfumes de otras marcas que la tienda también comercializa.
 
-Como excepción expresamente identificada, incluye un perfume totalmente ficticio para probar la categoría unisex en la demo. No representa un producto ni un lanzamiento real de la marca. Este documento prepara una implementación posterior; no incorpora productos a la aplicación por sí mismo.
+Como excepción expresamente identificada, incluye un perfume totalmente ficticio para probar la categoría unisex en la demo. No representa un producto ni un lanzamiento real de la marca. La aplicación incluye estos datos en su catálogo de demostración, con precios ficticios y familias reales pendientes de validación.
 
 Se identificaron cinco perfumes distintos:
 

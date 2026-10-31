@@ -1,0 +1,77 @@
+.own-presentation-card {
+  overflow: hidden;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.own-presentation-card__image {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(145deg, #fbf6e3, #f0e4be);
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.own-presentation-card__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.own-presentation-card__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 1.25rem;
+  flex: 1;
+}
+
+.own-presentation-card__content p,
+.own-presentation-card__content h2 {
+  margin: 0;
+}
+
+.own-presentation-card__content p {
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.own-presentation-card__content h2 {
+  color: var(--text-h);
+  font-size: 1.3rem;
+}
+
+.own-presentation-card__content .own-presentation-card__brand {
+  color: var(--accent);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.own-presentation-card__content .own-presentation-card__format {
+  color: var(--text-h);
+  font-weight: 600;
+}
+
+.own-presentation-card__price {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+.own-presentation-card__price strong {
+  color: var(--text-h);
+  font-size: 1.15rem;
+}

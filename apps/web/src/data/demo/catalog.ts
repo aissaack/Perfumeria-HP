@@ -2,6 +2,7 @@
 // No representan stock/precios/ventas reales
 
 import type { Brand, Fragrance, FragranceWithPresentations, ProductPresentation } from '../../types/catalog';
+import { HUELEPECTACULAR_FRAGRANCES, HUELEPECTACULAR_PRESENTATIONS } from './huelepectacular-line';
 
 export const DEMO_BRANDS: Brand[] = [
   { id: 'demo-brand-1', name: 'Maison Demo' },
@@ -12,28 +13,7 @@ export const DEMO_BRANDS: Brand[] = [
 ];
 
 export const DEMO_FRAGRANCES: Fragrance[] = [
-  {
-    id: 'demo-frag-own-1',
-    name: 'Bruma Ámbar',
-    brand: DEMO_BRANDS[4],
-    category: 'unisex',
-    family: 'Ámbar amaderado',
-    notes: ['Ámbar', 'Bálsamo', 'Madera cálida'],
-    description: 'Fragancia de demostración de la línea propia Huelepectacular.',
-    isDemoData: true,
-    section: 'own',
-  },
-  {
-    id: 'demo-frag-own-2',
-    name: 'Sol de Azahar',
-    brand: DEMO_BRANDS[4],
-    category: 'feminine',
-    family: 'Floral cítrico',
-    notes: ['Azahar', 'Bergamota', 'Almizcle suave'],
-    description: 'Fragancia de demostración de la línea propia Huelepectacular.',
-    isDemoData: true,
-    section: 'own',
-  },
+  ...HUELEPECTACULAR_FRAGRANCES,
   {
     id: 'demo-frag-1',
     name: 'Ámbar Cálido',
@@ -81,12 +61,7 @@ export const DEMO_FRAGRANCES: Fragrance[] = [
 ];
 
 export const DEMO_PRESENTATIONS: ProductPresentation[] = [
-  // Línea propia - Bruma Ámbar
-  { id: 'demo-pres-own-1a', fragranceId: 'demo-frag-own-1', format: 'bottle', sizeMl: 100, priceArs: 39990, currency: 'ARS', isDemoData: true },
-  { id: 'demo-pres-own-1b', fragranceId: 'demo-frag-own-1', format: 'decant', sizeMl: 5, priceArs: 6990, currency: 'ARS', isDemoData: true },
-  // Línea propia - Sol de Azahar
-  { id: 'demo-pres-own-2a', fragranceId: 'demo-frag-own-2', format: 'bottle', sizeMl: 50, priceArs: 27990, currency: 'ARS', isDemoData: true },
-  { id: 'demo-pres-own-2b', fragranceId: 'demo-frag-own-2', format: 'decant', sizeMl: 5, priceArs: 5490, currency: 'ARS', isDemoData: true },
+  ...HUELEPECTACULAR_PRESENTATIONS,
   // Ámbar Cálido
   { id: 'demo-pres-1a', fragranceId: 'demo-frag-1', format: 'bottle', sizeMl: 100, priceArs: 45990, currency: 'ARS', isDemoData: true },
   { id: 'demo-pres-1b', fragranceId: 'demo-frag-1', format: 'decant', sizeMl: 5, priceArs: 7990, currency: 'ARS', isDemoData: true },
