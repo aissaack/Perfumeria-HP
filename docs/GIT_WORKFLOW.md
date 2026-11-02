@@ -97,3 +97,4 @@ Este registro histórico conserva las ramas temporales aunque se eliminen. Los e
 | `feat/huelepectacular-line-cards` | Línea propia, presentaciones e imágenes de ejemplo | Integrada y eliminada |
 | `feat/product-detail-pages` | Detalle de producto, tarjetas compactas y paleta | Integrada y eliminada |
 | `feat/sticky-catalog-controls` | Controles del catálogo con posición fija durante el desplazamiento | Integrada y eliminada |
+| `feat/product-detail-pages` (nuevo ciclo) | Pruebas en los detalles de productos de la línea propia | En desarrollo |
