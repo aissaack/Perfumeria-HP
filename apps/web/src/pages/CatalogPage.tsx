@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
-import { ProductCard } from '../features/catalog/components/ProductCard';
 import { OwnPresentationCard } from '../features/catalog/components/OwnPresentationCard';
 import { demoCatalogRepository } from '../services/catalog/demoCatalogRepository';
 import type { CatalogFilters, FragranceCategory, FragranceWithPresentations, ProductFormat } from '../types/catalog';
@@ -295,14 +294,12 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
             </div>
           )}
           {!isLoading && !error && items.length > 0 && (
-            <div className={`catalog-page__grid${section === 'own' ? ' catalog-page__grid--own' : ''}`}>
-              {section === 'own'
-                ? items.flatMap((item) => item.presentations
+            <div className={`catalog-page__grid ${section === 'own' ? 'catalog-page__grid--own' : 'catalog-page__grid--general-presentations'}`}>
+              {items.flatMap((item) => item.presentations
                     .filter((presentation) => filters.format === 'all' || presentation.format === filters.format)
                     .map((presentation) => (
-                      <OwnPresentationCard key={presentation.id} item={item} presentation={presentation} returnSearch={buildFilterParams(filters).toString() ? `?${buildFilterParams(filters)}` : ''} />
-                    )))
-                : items.map((item) => <ProductCard key={item.id} item={item} />)}
+                      <OwnPresentationCard key={presentation.id} item={item} presentation={presentation} section={section} returnSearch={buildFilterParams(filters).toString() ? `?${buildFilterParams(filters)}` : ''} />
+                    )))}
             </div>
           )}
         </section>

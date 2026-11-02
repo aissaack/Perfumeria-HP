@@ -14,7 +14,7 @@ function formatPresentation(presentation: ProductPresentation) {
   return `${format}${presentation.sizeMl !== null ? ` · ${presentation.sizeMl} ml` : ''}`;
 }
 
-export function ProductDetailPage() {
+export function ProductDetailPage({ section = 'own' }: { section?: 'own' | 'general' }) {
   const { presentationId = '' } = useParams();
   const location = useLocation();
   const requestedReturn = new URLSearchParams(location.search).get('volver');
@@ -27,23 +27,24 @@ export function ProductDetailPage() {
   useEffect(() => {
     let cancelled = false;
     demoCatalogRepository.getByPresentationId(presentationId).then((result) => {
-      if (!cancelled) { setItem(result?.section === 'own' ? result : null); setError(false); setLoadedId(presentationId); }
+      if (!cancelled) { setItem(result?.section === section ? result : null); setError(false); setLoadedId(presentationId); }
     }).catch(() => {
       if (!cancelled) { setItem(null); setError(true); setLoadedId(presentationId); }
     });
     return () => { cancelled = true; };
-  }, [presentationId]);
+  }, [presentationId, section]);
 
   const presentation = item?.presentations.find((entry) => entry.id === presentationId);
   const isLoading = loadedId !== presentationId;
   const showImage = presentation?.imageUrl && presentation.imageUrl !== failedImageUrl;
-  const backLink = `/perfumes-huelepectacular${returnSearch}`;
+  const catalogPath = section === 'own' ? '/perfumes-huelepectacular' : '/catalogo';
+  const backLink = `${catalogPath}${returnSearch}`;
 
   return (
-    <div className="product-detail catalog-page--own-theme">
+    <div className={`product-detail${section === 'own' ? ' catalog-page--own-theme' : ''}`}>
       <Header demoLabel="Datos de demostración — Nivel 1" />
       <main className="product-detail__main">
-        <Link className="product-detail__back" to={backLink}>← Volver a Perfumes Huelepectacular</Link>
+        <Link className="product-detail__back" to={backLink}>← Volver a {section === 'own' ? 'Perfumes Huelepectacular' : 'Catálogo'}</Link>
         {isLoading && <p role="status">Cargando producto de demostración...</p>}
         {!isLoading && error && <p role="alert">No pudimos cargar el producto. Volvé al catálogo e intentá de nuevo.</p>}
         {!isLoading && !error && (!item || !presentation) && <p role="status">No encontramos esta presentación en el catálogo de demostración.</p>}
@@ -59,13 +60,13 @@ export function ProductDetailPage() {
               <p className="product-detail__format">{formatPresentation(presentation)}</p>
               <div><span>Precio ficticio de demostración</span><strong className="product-detail__price">{formatArs(presentation.priceArs)}</strong></div>
               <p>Categoría: {FRAGRANCE_CATEGORY_LABELS[item.category]} · Demo</p>
-              {item.family && <p>{item.id === FICTIONAL_UNISEX_ID ? 'Familia ficticia de demostración: ' : 'Familia orientativa, pendiente de validación: '}{item.family}</p>}
+              {item.family && <p>{section === 'general' ? 'Familia olfativa: ' : item.id === FICTIONAL_UNISEX_ID ? 'Familia ficticia de demostración: ' : 'Familia orientativa, pendiente de validación: '}{item.family}</p>}
               {item.description && <p>{item.description}</p>}
               {item.notes && item.notes.length > 0 && <p>Notas: {item.notes.join(', ')}</p>}
               {item.presentations.length > 1 && <section aria-labelledby="presentation-options">
                 <h2 id="presentation-options">Presentaciones</h2>
                 <div className="product-detail__options">
-                  {item.presentations.map((option) => <Link key={option.id} className="product-detail__option" aria-current={option.id === presentationId ? 'page' : undefined} to={{ pathname: `/perfumes-huelepectacular/producto/${encodeURIComponent(option.id)}`, search: location.search }}>{formatPresentation(option)}</Link>)}
+                  {item.presentations.map((option) => <Link key={option.id} className="product-detail__option" aria-current={option.id === presentationId ? 'page' : undefined} to={{ pathname: `${catalogPath}/producto/${encodeURIComponent(option.id)}`, search: location.search }}>{formatPresentation(option)}</Link>)}
                 </div>
               </section>}
             </div>

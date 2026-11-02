@@ -13,7 +13,7 @@
 .product-detail__note { font-size: 0.85rem; }
 .product-detail__price { display: block; color: var(--text-h); font-size: 1.5rem; }
 .product-detail__options { display: flex; flex-wrap: wrap; gap: var(--space-2); }
-.product-detail__option { display: inline-block; padding: 0.5rem 0.75rem; border: 1px solid var(--control-border); border-radius: var(--radius-md); color: var(--text-h); background: var(--surface); text-decoration: none; }
+.product-detail__option { display: inline-block; padding: 0.5rem 0.75rem; border: 1px solid var(--control-border, #777); border-radius: var(--radius-md); color: var(--text-h); background: var(--surface); text-decoration: none; }
 .product-detail__option:hover { border-color: var(--accent); background: var(--accent-bg); }
 .product-detail__option[aria-current='page'] { border-color: var(--accent); background: var(--accent-bg); font-weight: 600; }
 @media (min-width: 768px) { .product-detail__layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-7); align-items: start; } }

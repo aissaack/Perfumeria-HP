@@ -20,7 +20,7 @@
   display: grid;
   place-items: center;
   aspect-ratio: 4 / 3;
-  background: #e9eef0;
+  background: var(--bg-subtle);
   color: var(--text);
   font-size: 0.8rem;
 }
