@@ -24,7 +24,7 @@ El primer objetivo es una interfaz de tienda atractiva, responsive, navegable y 
 
 No construyas todavía un sistema de administración, autenticación, base de datos propia, inventario real, pedidos propios, checkout ni pagos. Son parte de etapas posteriores.
 
-## Stack y estructura
+## Stack y estructura(NO cambiar versiones ni agregar librerías sin autorización)
 
 - **Stack objetivo a largo plazo:** PERN: PostgreSQL, Express, React y Node.js.
 - **Frontend previsto:** React + Vite + TypeScript.
