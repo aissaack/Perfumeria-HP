@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { ProductCard } from '../features/catalog/components/ProductCard';
@@ -30,6 +30,16 @@ const FORMAT_OPTIONS: Array<{ value: ProductFormat | 'all'; label: string }> = [
   { value: 'decant', label: 'Decant' },
 ];
 
+function buildFilterParams(filters: Omit<CatalogFilters, 'section'>): URLSearchParams {
+  const params = new URLSearchParams();
+  if (filters.query.trim()) params.set('q', filters.query.trim());
+  if (filters.brandId) params.set('brand', filters.brandId);
+  if (filters.family) params.set('family', filters.family);
+  if (filters.category !== 'all') params.set('category', filters.category);
+  if (filters.format !== 'all') params.set('format', filters.format);
+  return params;
+}
+
 interface CatalogPageProps {
   section?: 'own' | 'general';
   title?: string;
@@ -37,7 +47,8 @@ interface CatalogPageProps {
 }
 
 export function CatalogPage({ section = 'general', title, description }: CatalogPageProps = {}) {
-  const location = useLocation();
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const filterButtonRef = useRef<HTMLButtonElement>(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState<Omit<CatalogFilters, 'section'>>(() => {
     const query = searchParams.get('q') || '';
@@ -61,13 +72,7 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
   const isLoading = loading || loadedSection !== section;
 
   useEffect(() => {
-    const next = new URLSearchParams();
-    if (filters.query.trim()) next.set('q', filters.query.trim());
-    if (filters.brandId) next.set('brand', filters.brandId);
-    if (filters.family) next.set('family', filters.family);
-    if (filters.category !== 'all') next.set('category', filters.category);
-    if (filters.format !== 'all') next.set('format', filters.format);
-    setSearchParams(next, { replace: true });
+    setSearchParams(buildFilterParams(filters), { replace: true });
   }, [filters, setSearchParams]);
 
   useEffect(() => {
@@ -107,6 +112,13 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
     );
   }, [filters]);
 
+  const activeFilterCount = Number(filters.brandId !== null) + Number(filters.family !== null) + Number(filters.category !== 'all') + Number(filters.format !== 'all');
+
+  function closeFilters() {
+    setFiltersOpen(false);
+    filterButtonRef.current?.focus();
+  }
+
   function resetFilters() {
     setFilters(DEFAULT_FILTERS);
   }
@@ -122,7 +134,7 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
 
   return (
     <div className={pageClass}>
-      <Header demoLabel="Datos de demostración — Nivel 1" />
+      <Header demoLabel="Datos de demostración — Nivel 1" searchValue={filters.query} onSearchChange={(query) => setFilters((current) => ({ ...current, query }))} />
 
       <main className="catalog-page__main">
         {section === 'own' && (
@@ -171,21 +183,11 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
           </section>
         )}
 
-        <section className="catalog-page__filters" aria-label="Filtros del catálogo">
-          <div className="catalog-page__filter-row">
-            <label className="catalog-page__field catalog-page__field--search">
-              <span className="catalog-page__field-label">Buscar</span>
-              <input
-                type="search"
-                className="catalog-page__input"
-                placeholder="Nombre, marca, familia o notas..."
-                value={filters.query}
-                onChange={(e) => setFilters((f) => ({ ...f, query: e.target.value }))}
-                aria-label="Buscar productos"
-              />
-            </label>
-          </div>
-
+        <section className="catalog-page__filters" aria-label="Filtros del catálogo" onKeyDown={(event) => { if (event.key === 'Escape' && filtersOpen) { event.stopPropagation(); closeFilters(); } }}>
+          <button ref={filterButtonRef} type="button" className="catalog-page__filters-toggle" aria-expanded={filtersOpen} aria-controls="catalog-filters-panel" onClick={() => setFiltersOpen((open) => !open)}>
+            Filtros{activeFilterCount > 0 ? ` (${activeFilterCount})` : ''}
+          </button>
+          <div id="catalog-filters-panel" className={`catalog-page__filters-panel${filtersOpen ? ' catalog-page__filters-panel--open' : ''}`}>
           <div className={`catalog-page__filter-row catalog-page__filter-row--grid${section === 'own' ? ' catalog-page__filter-row--own' : ''}`}>
             {section === 'general' && (
               <>
@@ -271,6 +273,8 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
               </button>
             </div>
           )}
+          <button type="button" className="catalog-page__filters-close" onClick={closeFilters}>Cerrar filtros</button>
+          </div>
         </section>
 
         <section className="catalog-page__results" aria-live="polite" aria-busy={isLoading}>
@@ -296,7 +300,7 @@ export function CatalogPage({ section = 'general', title, description }: Catalog
                 ? items.flatMap((item) => item.presentations
                     .filter((presentation) => filters.format === 'all' || presentation.format === filters.format)
                     .map((presentation) => (
-                      <OwnPresentationCard key={presentation.id} item={item} presentation={presentation} returnSearch={location.search} />
+                      <OwnPresentationCard key={presentation.id} item={item} presentation={presentation} returnSearch={buildFilterParams(filters).toString() ? `?${buildFilterParams(filters)}` : ''} />
                     )))
                 : items.map((item) => <ProductCard key={item.id} item={item} />)}
             </div>
