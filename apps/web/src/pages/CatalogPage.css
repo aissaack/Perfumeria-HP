@@ -296,8 +296,11 @@
   grid-template-columns: minmax(0, 1fr);
 }
 
+.catalog-page__grid--general-presentations { grid-template-columns: minmax(0, 1fr); }
+
 @media (min-width: 360px) {
   .catalog-page__grid--own { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .catalog-page__grid--general-presentations { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (min-width: 768px) {
@@ -329,7 +332,7 @@
 }
 
 @media (min-width: 1024px) {
-  .catalog-page__grid:not(.catalog-page__grid--own) {
+  .catalog-page__grid:not(.catalog-page__grid--own):not(.catalog-page__grid--general-presentations) {
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -337,4 +340,5 @@
 @media (min-width: 1200px) {
   .catalog-page__main:has(.catalog-page__grid--own) { max-width: 1360px; }
   .catalog-page__grid--own { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .catalog-page__grid--general-presentations { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }

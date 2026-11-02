@@ -12,6 +12,7 @@ function App() {
         <Route path="/perfumes-huelepectacular" element={<CatalogPage key="own" section="own" title="Perfumes Huelepectacular" description="Línea propia de demostración. Productos exclusivos de Huelepectacular, separados del catálogo general." />} />
         <Route path="/perfumes-huelepectacular/producto/:presentationId" element={<ProductDetailPage />} />
         <Route path="/catalogo" element={<CatalogPage key="general" section="general" title="Catálogo" />} />
+        <Route path="/catalogo/producto/:presentationId" element={<ProductDetailPage section="general" />} />
       </Routes>
     </BrowserRouter>
   );
