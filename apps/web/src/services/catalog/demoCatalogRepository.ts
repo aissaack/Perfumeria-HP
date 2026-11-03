@@ -18,13 +18,15 @@ export class DemoCatalogRepository implements CatalogRepository {
       results = results.filter((item) => (item.section || 'general') === f.section);
     }
 
+    if (f.classification) results = results.filter((item) => item.classifications?.includes(f.classification!));
+    if (f.segment) results = results.filter((item) => item.segments?.includes(f.segment!));
+    if (f.offer) results = results.filter((item) => item.isDemoOffer);
+    if (f.sizeMl !== null) results = results.filter((item) => item.presentations.some((p) => p.sizeMl === f.sizeMl && (f.format === 'all' || p.format === f.format)));
+
     if (f.brandId) {
       results = results.filter((item) => item.brand.id === f.brandId);
     }
 
-    if (f.family) {
-      results = results.filter((item) => item.family === f.family);
-    }
 
     if (f.category !== 'all') {
       results = results.filter((item) => item.category === f.category);
@@ -41,9 +43,8 @@ export class DemoCatalogRepository implements CatalogRepository {
       results = results.filter((item) => {
         const name = normalize(item.name);
         const brand = normalize(item.brand.name);
-        const family = item.family ? normalize(item.family) : '';
         const notes = (item.notes || []).map((n) => normalize(n)).join(' ');
-        return name.includes(q) || brand.includes(q) || family.includes(q) || notes.includes(q);
+        return name.includes(q) || brand.includes(q) || notes.includes(q) || normalize(item.category).includes(q) || (item.classifications ?? []).some((value) => normalize(value).includes(q)) || (item.segments ?? []).some((value) => normalize(value).includes(q));
       });
     }
 

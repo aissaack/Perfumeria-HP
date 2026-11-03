@@ -14,7 +14,7 @@ function formatPresentation(presentation: ProductPresentation) {
   return `${format}${presentation.sizeMl !== null ? ` · ${presentation.sizeMl} ml` : ''}`;
 }
 
-export function ProductDetailPage({ section = 'own' }: { section?: 'own' | 'general' }) {
+export function ProductDetailPage({ section = 'own', niche = false }: { section?: 'own' | 'general'; niche?: boolean }) {
   const { presentationId = '' } = useParams();
   const location = useLocation();
   const requestedReturn = new URLSearchParams(location.search).get('volver');
@@ -37,14 +37,14 @@ export function ProductDetailPage({ section = 'own' }: { section?: 'own' | 'gene
   const presentation = item?.presentations.find((entry) => entry.id === presentationId);
   const isLoading = loadedId !== presentationId;
   const showImage = presentation?.imageUrl && presentation.imageUrl !== failedImageUrl;
-  const catalogPath = section === 'own' ? '/perfumes-huelepectacular' : '/catalogo';
+  const catalogPath = section === 'own' ? '/perfumes-huelepectacular' : niche ? '/catalogo/nicho' : '/catalogo';
   const backLink = `${catalogPath}${returnSearch}`;
 
   return (
     <div className={`product-detail${section === 'own' ? ' catalog-page--own-theme' : ''}`}>
       <Header demoLabel="Datos de demostración — Nivel 1" />
       <main className="product-detail__main">
-        <Link className="product-detail__back" to={backLink}>← Volver a {section === 'own' ? 'Perfumes Huelepectacular' : 'Catálogo'}</Link>
+        <Link className="product-detail__back" to={backLink}>← Volver a {section === 'own' ? 'Perfumes Huelepectacular' : niche ? 'Nicho' : 'Catálogo'}</Link>
         {isLoading && <p role="status">Cargando producto de demostración...</p>}
         {!isLoading && error && <p role="alert">No pudimos cargar el producto. Volvé al catálogo e intentá de nuevo.</p>}
         {!isLoading && !error && (!item || !presentation) && <p role="status">No encontramos esta presentación en el catálogo de demostración.</p>}
@@ -58,7 +58,7 @@ export function ProductDetailPage({ section = 'own' }: { section?: 'own' | 'gene
               <p className="product-detail__brand">{item.brand.name}</p>
               <h1>{item.name}</h1>
               <p className="product-detail__format">{formatPresentation(presentation)}</p>
-              <div><span>Precio ficticio de demostración</span><strong className="product-detail__price">{formatArs(presentation.priceArs)}</strong></div>
+              <div>{presentation.priceArs === null ? <span>Precio pendiente de confirmación</span> : <><span>Precio ficticio de demostración</span><strong className="product-detail__price">{formatArs(presentation.priceArs)}</strong></>}</div>
               <p>Categoría: {FRAGRANCE_CATEGORY_LABELS[item.category]} · Demo</p>
               {item.family && <p>{section === 'general' ? 'Familia olfativa: ' : item.id === FICTIONAL_UNISEX_ID ? 'Familia ficticia de demostración: ' : 'Familia orientativa, pendiente de validación: '}{item.family}</p>}
               {item.description && <p>{item.description}</p>}

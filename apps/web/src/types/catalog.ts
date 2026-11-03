@@ -27,6 +27,9 @@ export interface Fragrance {
   notes?: string[]; // notas opcionales
   description?: string;
   isDemoData: boolean;
+  classifications?: string[];
+  segments?: string[];
+  isDemoOffer?: boolean;
   section?: CatalogSection; // Sección: línea propia o catálogo general
 }
 
@@ -36,7 +39,7 @@ export interface ProductPresentation {
   format: ProductFormat;
   sizeMl: number | null;
   imageUrl?: string;
-  priceArs: number; // precio ficticio para demo
+  priceArs: number | null; // precio ficticio o pendiente de confirmación
   currency: 'ARS';
   isDemoData: boolean;
 }
@@ -49,15 +52,21 @@ export interface CatalogFilters {
   query: string;
   brandId: string | null;
   format: ProductFormat | 'all';
-  family: string | null;
   category: FragranceCategory | 'all';
+  classification: string | null;
+  segment: string | null;
+  sizeMl: number | null;
+  offer: boolean;
   section?: CatalogSection | 'all';
 }
 
 export const DEFAULT_FILTERS: Omit<CatalogFilters, 'section'> = {
   query: '',
+  classification: null,
+  segment: null,
+  sizeMl: null,
+  offer: false,
   brandId: null,
   format: 'all',
-  family: null,
   category: 'all',
 };
