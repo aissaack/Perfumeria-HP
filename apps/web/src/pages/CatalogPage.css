@@ -342,3 +342,27 @@
   .catalog-page__grid--own { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .catalog-page__grid--general-presentations { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
+
+.catalog-page__quick { display: flex; flex-wrap: wrap; gap: .6rem; }
+.catalog-page__quick button { min-height: 44px; padding: .6rem 1rem; border: 1px solid var(--control-border, #777); border-radius: var(--radius-pill); background: var(--surface); color: var(--text-h); font: inherit; cursor: pointer; }
+.catalog-page__quick button[aria-pressed="true"] { background: var(--text-h); color: var(--bg); }
+.catalog-page__quick button:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px; }
+
+/* Catálogo general: filtros en el flujo, junto a las tarjetas en escritorio. */
+.catalog-page__layout--general .catalog-page__filters { position: static; }
+.catalog-page__layout--general .catalog-page__grid--general-presentations { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 768px) {
+  .catalog-page__layout--general { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: var(--space-5); align-items: start; }
+  .catalog-page__layout--general .catalog-page__filter-row--grid { grid-template-columns: minmax(0, 1fr); }
+  .catalog-page__layout--general .catalog-page__filters-panel { max-height: none; overflow: visible; }
+  .catalog-page__layout--general .catalog-page__grid--general-presentations { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.catalog-page__layout:not(.catalog-page__layout--general) { display: flex; flex-direction: column; gap: var(--space-5); }
+
+.catalog-page__niche-link, .catalog-page__intro--niche { padding: clamp(1.25rem, 4vw, 2.5rem); border-radius: var(--radius-lg); background: #302a35; color: #fff; }
+.catalog-page__niche-link { display: flex; flex-direction: column; gap: .4rem; text-decoration: none; }
+.catalog-page__niche-link strong { font-size: 1.5rem; }
+.catalog-page__niche-link:focus-visible { outline: 3px solid var(--accent-strong); outline-offset: 3px; }
+.catalog-page__intro--niche .catalog-page__title, .catalog-page__intro--niche .catalog-page__description { color: #fff; }
+.catalog-page__niche-label { margin: 0; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }

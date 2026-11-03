@@ -30,7 +30,7 @@ export function PresentationList({ presentations }: PresentationListProps) {
             {p.format === 'decant' && <span className="pres-list__tag">Decant</span>}
             {p.format === 'bottle' && <span className="pres-list__tag pres-list__tag--bottle">Botella completa</span>}
           </div>
-          <div className="pres-list__price">{formatArs(p.priceArs)}</div>
+          <div className="pres-list__price">{p.priceArs === null ? 'Precio pendiente de confirmación' : formatArs(p.priceArs)}</div>
         </li>
       ))}
     </ul>

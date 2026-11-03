@@ -31,3 +31,6 @@
 .own-presentation-card__content p, .own-presentation-card__disclaimer, .own-presentation-card__price-label { color: var(--text); font-size: 0.75rem; line-height: 1.4; }
 .own-presentation-card__price-label { margin-top: auto; padding-top: 0.4rem; }
 .own-presentation-card__content strong { font-size: 1rem; }
+
+.own-presentation-card--general .own-presentation-card__brand { color: var(--text-h); font-size: 1.13rem; line-height: 1.25; font-weight: 750; overflow-wrap: anywhere; }
+.own-presentation-card--general .own-presentation-card__content h2 { font-size: 1rem; font-weight: 600; }

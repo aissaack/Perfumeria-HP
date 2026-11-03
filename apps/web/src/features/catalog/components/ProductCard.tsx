@@ -10,9 +10,8 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ item }: ProductCardProps) {
-  const minPrice = item.presentations.length
-    ? Math.min(...item.presentations.map((p) => p.priceArs))
-    : null;
+  const prices = item.presentations.flatMap((p) => p.priceArs === null ? [] : [p.priceArs]);
+  const minPrice = prices.length ? Math.min(...prices) : null;
 
   return (
     <article className="product-card" aria-labelledby={`frag-${item.id}-title`}>

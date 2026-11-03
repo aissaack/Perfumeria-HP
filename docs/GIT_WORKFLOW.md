@@ -100,3 +100,4 @@ Este registro histórico conserva las ramas temporales aunque se eliminen. Los e
 | `feat/product-detail-pages` (nuevo ciclo) | Pruebas en los detalles de productos de la línea propia | Integrada y eliminada |
 | `feat/general-catalog` | Modificaciones en el catálogo general | Integrada y eliminada |
 | `feat/home-styles` | Estilos de la sección de inicio | En desarrollo |
+| `feat/general-catalog-filters` | reformular la sección del catálogo general | En desarrollo |
