@@ -101,3 +101,4 @@ Este registro histórico conserva las ramas temporales aunque se eliminen. Los e
 | `feat/general-catalog` | Modificaciones en el catálogo general | Integrada y eliminada |
 | `feat/home-styles` | Estilos de la sección de inicio | En desarrollo |
 | `feat/general-catalog-filters` | reformular la sección del catálogo general | Integrada y eliminada |
+| `feat/niche-catalog-filters` | Separar Nicho y búsqueda global | En desarrollo |

@@ -28,3 +28,9 @@
   .hp-header__container { grid-template-columns: auto 1fr minmax(220px, 340px) auto; }
   .hp-header__search { grid-column: auto; }
 }
+
+.hp-header__search { position: relative; }
+.hp-header__suggestions { position: absolute; z-index: 40; top: 100%; left: 0; right: 0; list-style: none; margin: .25rem 0 0; padding: .3rem; background: var(--surface); color: var(--text-h); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow); max-height: 18rem; overflow-y: auto; }
+.hp-header__suggestions li { padding: .7rem; cursor: pointer; }
+.hp-header__suggestions li:hover, .hp-header__suggestions li[aria-selected="true"] { background: var(--accent-bg); }
+.hp-header__suggestions span { color: var(--text); font-size: .85rem; }

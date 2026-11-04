@@ -5,12 +5,13 @@ export type ProductFormat = 'bottle' | 'decant' | 'other';
 
 export type CatalogSection = 'own' | 'general';
 
-export type FragranceCategory = 'masculine' | 'feminine' | 'unisex';
+export type FragranceCategory = 'masculine' | 'feminine' | 'unisex' | 'unspecified';
 
 export const FRAGRANCE_CATEGORY_LABELS: Record<FragranceCategory, string> = {
   masculine: 'Masculino',
   feminine: 'Femenino',
   unisex: 'Unisex',
+  unspecified: 'Sin especificar',
 };
 
 export interface Brand {

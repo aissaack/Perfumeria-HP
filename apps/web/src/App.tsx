@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router';
 import { HomePage } from './pages/HomePage';
 import { CatalogPage } from './pages/CatalogPage';
+import { SearchPage } from './pages/SearchPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
 import './App.css';
 
@@ -20,6 +21,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/buscar" element={<SearchPage />} />
         <Route path="/perfumes-huelepectacular" element={<CatalogPage key="own" section="own" title="Perfumes Huelepectacular" description="Línea propia de demostración. Productos exclusivos de Huelepectacular, separados del catálogo general." />} />
         <Route path="/perfumes-huelepectacular/producto/:presentationId" element={<ProductDetailPage />} />
         <Route path="/catalogo" element={<GeneralCatalog />} />

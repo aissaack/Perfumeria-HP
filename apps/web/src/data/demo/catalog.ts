@@ -87,14 +87,14 @@ DEMO_FRAGRANCES.find((item) => item.id === 'demo-frag-2')!.classifications = ['V
 // Datos aportados para referencia; no confirman disponibilidad ni precios de las presentaciones.
 const NICHE_REFERENCES: Array<{ brand: string; name: string; category: Fragrance['category']; description: string; bottleSizes: number[] }> = [
   { brand: 'Tom Ford', name: 'Tobacco Vanille', category: 'unisex', description: 'Oriental especiada tipo gourmand: tabaco y especias sobre vainilla, cacao y haba tonka.', bottleSizes: [30, 50, 100] },
-  { brand: 'Creed', name: 'Aventus', category: 'masculine', description: 'Chipre frutal amaderada: frutas sobre abedul, almizcle y musgo de roble.', bottleSizes: [30, 50, 100, 250] },
-  { brand: 'Nishane', name: 'Ani Extrait de Parfum', category: 'unisex', description: 'Oriental gourmand y especiada: vainilla, ámbar y especias.', bottleSizes: [50, 100] },
+  { brand: 'Creed', name: 'Aventus', category: 'masculine', description: 'Chipre frutal amaderada: frutas sobre abedul, almizcle y musgo de roble.', bottleSizes: [50, 100] },
+  { brand: 'Nishane', name: 'Ani X Extrait de Parfum', category: 'unisex', description: 'Fragancia unisex que ofrece una reinterpretación más fresca, cítrica y luminosa del Ani original.', bottleSizes: [50, 100] },
   { brand: 'Lorenzo Pazzaglia', name: 'Sun-Gria Extrait de Parfum', category: 'unisex', description: 'Frutal amaderada con toque gourmand: cítricos y frutas sobre vainilla y maderas.', bottleSizes: [28, 50] },
-  { brand: 'Solonoi (Maison Crivelli)', name: 'Rose Saltifolia', category: 'feminine', description: 'Floral marina: rosa, notas salinas, cítricos y buganvilia.', bottleSizes: [100] },
+  { brand: 'Solonoi', name: 'Dolce Narcotico', category: 'unisex', description: 'Perfume de nicho argentino de familia gourmand, dulce y aterciopelado, con un carácter oscuro, misterioso y enigmático. Se describe como potente y de gran fijación.', bottleSizes: [100] },
   { brand: 'Xerjoff', name: 'Erba Pura', category: 'unisex', description: 'Cítrica y frutal con fondo ámbar-almizclado: naranja, limón y frutas mediterráneas.', bottleSizes: [50, 100] },
   { brand: 'Maison Margiela', name: 'Replica Lazy Sunday Morning', category: 'feminine', description: 'Floral almizclada: lirio de los valles, iris, rosa y almizcles blancos.', bottleSizes: [30, 100] },
   { brand: 'Parfums de Marly', name: 'Layton', category: 'masculine', description: 'Oriental floral aromática: manzana, lavanda y bergamota sobre vainilla, cardamomo y sándalo.', bottleSizes: [75, 125, 200] },
-  { brand: 'Montale', name: 'Roses Musk', category: 'feminine', description: 'Floral amaderada almizclada: rosa búlgara con almizcle blanco y ámbar.', bottleSizes: [50, 100] },
+  { brand: 'Montale', name: 'Roses Musk', category: 'feminine', description: 'Floral amaderada almizclada: rosa búlgara con almizcle blanco y ámbar.', bottleSizes: [100] },
 ];
 NICHE_REFERENCES.forEach((reference, index) => {
   const id = `niche-reference-${index + 1}`;

@@ -366,3 +366,8 @@
 .catalog-page__niche-link:focus-visible { outline: 3px solid var(--accent-strong); outline-offset: 3px; }
 .catalog-page__intro--niche .catalog-page__title, .catalog-page__intro--niche .catalog-page__description { color: #fff; }
 .catalog-page__niche-label { margin: 0; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
+
+.search-results__section { border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); padding: var(--space-4); }
+.search-results__section h2 { margin: 0 0 var(--space-2); }
+.search-results__section ul { padding-left: 1.25rem; line-height: 1.8; }
+.search-results__section a { color: var(--text-h); }
