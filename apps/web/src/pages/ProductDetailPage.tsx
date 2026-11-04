@@ -3,6 +3,7 @@ import { Link, useLocation, useParams } from 'react-router';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { FICTIONAL_UNISEX_ID } from '../data/demo/huelepectacular-line';
+import { NICHE_CARD_IMAGES } from '../data/demo/nicheCardImages';
 import { demoCatalogRepository } from '../services/catalog/demoCatalogRepository';
 import { FRAGRANCE_CATEGORY_LABELS } from '../types/catalog';
 import type { FragranceWithPresentations, ProductPresentation } from '../types/catalog';
@@ -36,7 +37,8 @@ export function ProductDetailPage({ section = 'own', niche = false }: { section?
 
   const presentation = item?.presentations.find((entry) => entry.id === presentationId);
   const isLoading = loadedId !== presentationId;
-  const showImage = presentation?.imageUrl && presentation.imageUrl !== failedImageUrl;
+  const imageUrl = niche && presentation ? NICHE_CARD_IMAGES[presentation.id] : presentation?.imageUrl;
+  const showImage = imageUrl && imageUrl !== failedImageUrl;
   const catalogPath = section === 'own' ? '/perfumes-huelepectacular' : niche ? '/catalogo/nicho' : '/catalogo';
   const backLink = `${catalogPath}${returnSearch}`;
 
@@ -51,7 +53,7 @@ export function ProductDetailPage({ section = 'own', niche = false }: { section?
         {!isLoading && !error && item && presentation && (
           <article className="product-detail__layout">
             <div className="product-detail__media">
-              {showImage ? <img src={presentation.imageUrl} alt={`Imagen de ejemplo de ${item.name} — ${formatPresentation(presentation)}`} onError={() => setFailedImageUrl(presentation.imageUrl ?? null)} /> : <span>Imagen pendiente</span>}
+              {showImage ? <img src={imageUrl} alt={`Imagen de ejemplo de ${item.name} — ${formatPresentation(presentation)}`} onError={() => setFailedImageUrl(imageUrl)} /> : <span>Imagen pendiente</span>}
             </div>
             <div className="product-detail__content">
               {showImage && <p className="product-detail__note">Imagen de ejemplo · no representa el producto real</p>}

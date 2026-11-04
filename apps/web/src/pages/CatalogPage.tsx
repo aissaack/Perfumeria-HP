@@ -4,6 +4,7 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { OwnPresentationCard } from '../features/catalog/components/OwnPresentationCard';
 import { demoCatalogRepository } from '../services/catalog/demoCatalogRepository';
+import { getSearchSection } from '../services/catalog/searchCatalog';
 import type { CatalogFilters, FragranceCategory, FragranceWithPresentations, ProductFormat } from '../types/catalog';
 import { DEFAULT_FILTERS, FRAGRANCE_CATEGORY_LABELS } from '../types/catalog';
 import './CatalogPage.css';
@@ -38,7 +39,7 @@ export function CatalogPage({ section = 'general', title, description, niche = f
   const [filtersOpen, setFiltersOpen] = useState(false);
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [filters, setFilters] = useState<Omit<CatalogFilters, 'section'>>(() => {
+  const filters = useMemo<Omit<CatalogFilters, 'section'>>(() => {
     const query = searchParams.get('q') || '';
     const brandId = searchParams.get('brand');
     const category = searchParams.get('category');
@@ -46,19 +47,23 @@ export function CatalogPage({ section = 'general', title, description, niche = f
     return {
       ...DEFAULT_FILTERS,
       query,
-      classification: section === 'general' ? searchParams.get('classification') : null,
-      segment: section === 'general' ? searchParams.get('segment') : null,
+      classification: section === 'general' && !niche ? searchParams.get('classification') : null,
+      segment: section === 'general' && !niche ? searchParams.get('segment') : null,
       sizeMl: section === 'general' && Number(searchParams.get('size')) > 0 ? Number(searchParams.get('size')) : null,
       offer: section === 'general' && searchParams.get('offer') === '1',
       brandId: section === 'general' && brandId && brandId.trim() ? brandId : null,
       category: category === 'masculine' || category === 'feminine' || category === 'unisex' ? category : 'all',
       format: format === 'bottle' || format === 'decant' || format === 'all' ? format : 'all',
     };
-  });
+  }, [searchParams, section, niche]);
+  function setFilters(update: Omit<CatalogFilters, 'section'> | ((current: Omit<CatalogFilters, 'section'>) => Omit<CatalogFilters, 'section'>)) {
+    const next = typeof update === 'function' ? update(filters) : update;
+    setSearchParams(buildFilterParams(next));
+  }
   const [options, setOptions] = useState<FragranceWithPresentations[]>([]);
   useEffect(() => {
     let active = true;
-    demoCatalogRepository.list({ section }).then((results) => { if (active) setOptions(niche ? results.filter((item) => item.segments?.includes('Nicho')) : results); }).catch(() => { if (active) setOptions([]); });
+    demoCatalogRepository.list({ section }).then((results) => { if (active) setOptions(results.filter((item) => getSearchSection(item) === (section === 'own' ? 'own' : niche ? 'niche' : 'general'))); }).catch(() => { if (active) setOptions([]); });
     return () => { active = false; };
   }, [section, niche]);
   const brands = Array.from(new Map(options.map((item) => [item.brand.id, item.brand])).values());
@@ -72,10 +77,6 @@ export function CatalogPage({ section = 'general', title, description, niche = f
   const isLoading = loading || loadedSection !== section;
 
   useEffect(() => {
-    setSearchParams(buildFilterParams(filters), { replace: true });
-  }, [filters, setSearchParams]);
-
-  useEffect(() => {
     let cancelled = false;
     const load = async () => {
       setLoading(true);
@@ -83,7 +84,7 @@ export function CatalogPage({ section = 'general', title, description, niche = f
       try {
         const results = await demoCatalogRepository.list({ ...filters, section });
         if (!cancelled) {
-          setItems(niche ? results.filter((item) => item.segments?.includes('Nicho')) : results);
+          setItems(results.filter((item) => getSearchSection(item) === (section === 'own' ? 'own' : niche ? 'niche' : 'general')));
         }
       } catch (err) {
         if (!cancelled) {
@@ -133,7 +134,7 @@ export function CatalogPage({ section = 'general', title, description, niche = f
 
   return (
     <div className={pageClass}>
-      <Header demoLabel="Datos de demostración — Nivel 1" searchValue={filters.query} onSearchChange={(query) => setFilters((current) => ({ ...current, query }))} />
+      <Header demoLabel="Datos de demostración — Nivel 1" />
 
       <main className="catalog-page__main">
         {section === 'own' && (
@@ -183,7 +184,6 @@ export function CatalogPage({ section = 'general', title, description, niche = f
           </section>
         )}
 
-        {section === 'general' && !niche && <Link className="catalog-page__niche-link" to="/catalogo/nicho"><span>Una selección para explorar</span><strong>Perfumería de nicho →</strong><small>Conocé la selección de demostración</small></Link>}
         {niche && <Link to="/catalogo">← Volver al catálogo general</Link>}
         {section === 'general' && <nav className="catalog-page__quick" aria-label="Explorar por formato">
           {FORMAT_OPTIONS.map((option) => <button key={option.value} type="button" aria-pressed={filters.format === option.value} onClick={() => setFilters((current) => ({ ...current, format: option.value }))}>{option.value === 'all' ? 'Todos los productos' : option.value === 'bottle' ? 'Perfumes completos' : 'Decants'}</button>)}
@@ -216,8 +216,8 @@ export function CatalogPage({ section = 'general', title, description, niche = f
                     ))}
                   </select>
                 </label>
-                <label className="catalog-page__field"><span className="catalog-page__field-label">Clasificación comercial</span><select className="catalog-page__select" value={filters.classification ?? ''} onChange={(e) => setFilters((f) => ({ ...f, classification: e.target.value || null }))}><option value="">Todas</option>{classifications.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
-                <label className="catalog-page__field"><span className="catalog-page__field-label">Segmento</span><select className="catalog-page__select" value={filters.segment ?? ''} onChange={(e) => setFilters((f) => ({ ...f, segment: e.target.value || null }))}><option value="">Todos</option>{segments.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
+                {!niche && <label className="catalog-page__field"><span className="catalog-page__field-label">Clasificación comercial</span><select className="catalog-page__select" value={filters.classification ?? ''} onChange={(e) => setFilters((f) => ({ ...f, classification: e.target.value || null }))}><option value="">Todas</option>{classifications.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>}
+                {!niche && <label className="catalog-page__field"><span className="catalog-page__field-label">Segmento</span><select className="catalog-page__select" value={filters.segment ?? ''} onChange={(e) => setFilters((f) => ({ ...f, segment: e.target.value || null }))}><option value="">Todos</option>{segments.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>}
                 <label className="catalog-page__field"><span className="catalog-page__field-label">Tamaño</span><select className="catalog-page__select" value={filters.sizeMl ?? ''} onChange={(e) => setFilters((f) => ({ ...f, sizeMl: e.target.value ? Number(e.target.value) : null }))}><option value="">Todos</option>{sizes.map((size) => <option key={size} value={size}>{size} ml</option>)}</select></label>
               </>
             )}
