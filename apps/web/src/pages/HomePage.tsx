@@ -4,7 +4,7 @@ import { Footer } from '../components/Footer';
 import './HomePage.css';
 
 const QUICK_ACCESS = [
-  { label: 'Diseñador', to: '/catalogo?classification=Dise%C3%B1ador', filterKey: 'brandId', filterValue: 'demo-brand-1' },
+  { label: 'Diseñador', to: '/catalogo?classification=Dise%C3%B1ador' },
   { label: 'Árabes', to: '/catalogo?classification=%C3%81rabes', filterKey: 'family', filterValue: 'Oriental amaderado' },
   { label: 'Nicho', to: '/catalogo/nicho', filterKey: 'brandId', filterValue: 'demo-brand-4' },
   { label: 'Decants', to: '/catalogo?format=decant', filterKey: 'format', filterValue: 'decant' },

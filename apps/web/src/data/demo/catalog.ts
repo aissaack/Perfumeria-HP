@@ -5,84 +5,72 @@ import type { Brand, Fragrance, FragranceWithPresentations, ProductPresentation 
 import { HUELEPECTACULAR_FRAGRANCES, HUELEPECTACULAR_PRESENTATIONS } from './huelepectacular-line';
 
 export const DEMO_BRANDS: Brand[] = [
-  { id: 'demo-brand-1', name: 'Maison Demo' },
-  { id: 'demo-brand-2', name: 'Atelier Ficticio' },
-  { id: 'demo-brand-3', name: 'Oasis Árabe (Demo)' },
   { id: 'demo-brand-own', name: 'Huelepectacular' },
 ];
 
 export const DEMO_FRAGRANCES: Fragrance[] = [
   ...HUELEPECTACULAR_FRAGRANCES,
-  {
-    id: 'demo-frag-1',
-    name: 'Ámbar Cálido',
-    brand: DEMO_BRANDS[0],
-    category: 'masculine',
-    family: 'Ámbar amaderado',
-    notes: ['Ámbar', 'Vainilla', 'Cedro'],
-    description: 'Fragancia de demostración con perfil cálido y envolvente.',
-    isDemoData: true,
-    section: 'general',
-  },
-  {
-    id: 'demo-frag-2',
-    name: 'Cítricos Frescos',
-    brand: DEMO_BRANDS[1],
-    category: 'unisex',
-    family: 'Cítrico aromático',
-    notes: ['Bergamota', 'Naranja dulce', 'Romero'],
-    description: 'Fragancia de demostración ideal para uso diario.',
-    isDemoData: true,
-    section: 'general',
-  },
-  {
-    id: 'demo-frag-3',
-    name: 'Oud Intenso',
-    brand: DEMO_BRANDS[2],
-    category: 'masculine',
-    family: 'Oriental amaderado',
-    notes: ['Oud', 'Rosa', 'Pachuli'],
-    description: 'Fragancia de demostración con carácter intenso.',
-    isDemoData: true,
-    section: 'general',
-  },
 ];
 
 export const DEMO_PRESENTATIONS: ProductPresentation[] = [
   ...HUELEPECTACULAR_PRESENTATIONS,
-  // Ámbar Cálido
-  { id: 'demo-pres-1a', fragranceId: 'demo-frag-1', format: 'bottle', sizeMl: 100, priceArs: 45990, currency: 'ARS', isDemoData: true },
-  { id: 'demo-pres-1b', fragranceId: 'demo-frag-1', format: 'decant', sizeMl: 5, priceArs: 7990, currency: 'ARS', isDemoData: true },
-  { id: 'demo-pres-1c', fragranceId: 'demo-frag-1', format: 'decant', sizeMl: 10, priceArs: 13990, currency: 'ARS', isDemoData: true },
-  // Cítricos Frescos
-  { id: 'demo-pres-2a', fragranceId: 'demo-frag-2', format: 'bottle', sizeMl: 50, priceArs: 29990, currency: 'ARS', isDemoData: true },
-  { id: 'demo-pres-2b', fragranceId: 'demo-frag-2', format: 'decant', sizeMl: 5, priceArs: 5990, currency: 'ARS', isDemoData: true },
-  // Oud Intenso
-  { id: 'demo-pres-3a', fragranceId: 'demo-frag-3', format: 'bottle', sizeMl: 100, priceArs: 89990, currency: 'ARS', isDemoData: true },
-  { id: 'demo-pres-3b', fragranceId: 'demo-frag-3', format: 'decant', sizeMl: 5, priceArs: 14990, currency: 'ARS', isDemoData: true },
-  { id: 'demo-pres-3c', fragranceId: 'demo-frag-3', format: 'decant', sizeMl: 10, priceArs: 27990, currency: 'ARS', isDemoData: true },
 ];
 
-// Marcas de referencia; productos y precios son ficticios.
-const REFERENCE_EXAMPLES = [
-  { brand: 'Mykonos', classifications: [] as string[], segments: [] as string[], sizes: [50, 100] },
-  { brand: 'JO Milano', classifications: ['Diseñador'], segments: [], sizes: [100] },
-  { brand: 'Bharara', classifications: [], segments: [], sizes: [100] },
-  { brand: 'Extracto Importado', classifications: ['Nacionales'], segments: [], sizes: [50] },
-  { brand: 'Yves d’Orgeval', classifications: ['Nacionales'], segments: [], sizes: [100] },
-  { brand: 'Milano', classifications: ['Nacionales'], segments: [], sizes: [100] },
+// Referencias aportadas para la demo; no confirman precios ni disponibilidad.
+const GENERAL_REFERENCES: Array<{
+  id: string; brandId: string; brand: string; name: string; category: Fragrance['category'];
+  classifications?: string[]; segments?: string[];
+  presentations: Array<{ format: 'bottle' | 'decant'; sizeMl: number; image: string }>;
+}> = [
+  { id: 'demo-lattafa-asad', brandId: 'demo-lattafa', brand: 'Lattafa', name: 'Asad', category: 'masculine', classifications: ['Árabes'], presentations: [
+    { format: 'bottle', sizeMl: 100, image: 'Lattafa-asad-hombre-100ml.webp' }, { format: 'decant', sizeMl: 5, image: 'Lattafa-asad-hombre-decant-5ml.webp' },
+  ] },
+  { id: 'demo-lattafa-yara', brandId: 'demo-lattafa', brand: 'Lattafa', name: 'Yara', category: 'feminine', classifications: ['Árabes'], presentations: [
+    { format: 'bottle', sizeMl: 100, image: 'Lattafa-yara-mujer-100ml.jpg' }, { format: 'decant', sizeMl: 5, image: 'Lattafa-yara-mujer-decant-5ml.jpg' },
+  ] },
+  { id: 'demo-armani-oud-royal', brandId: 'demo-armani', brand: 'Armani', name: 'Privé Oud Royal', category: 'unisex', classifications: ['Diseñador'], presentations: [
+    { format: 'bottle', sizeMl: 100, image: 'armani-prive-oud-royal-unisex-100ml.avif' }, { format: 'decant', sizeMl: 5, image: 'armani-prive-oud-royal-unisex-decant-5ml.webp' },
+  ] },
+  { id: 'demo-armani-profondo', brandId: 'demo-armani', brand: 'Armani', name: 'Acqua di Giò Profondo', category: 'masculine', classifications: ['Diseñador'], presentations: [
+    { format: 'bottle', sizeMl: 100, image: 'armani-aqua-di-gio-profondo-hombre-100ml.webp' }, { format: 'decant', sizeMl: 5, image: 'armani-aqua-di-gio-profondo-hombre-decant-5ml.webp' },
+  ] },
+  { id: 'demo-armani-power', brandId: 'demo-armani', brand: 'Armani', name: 'Power of You', category: 'feminine', classifications: ['Diseñador'], presentations: [
+    { format: 'bottle', sizeMl: 50, image: 'armani-power-of-you-mujer-50ml.webp' }, { format: 'decant', sizeMl: 5, image: 'armani-power-of-you-mujer-decant-5ml.webp' },
+  ] },
+  { id: 'demo-reference-0', brandId: 'demo-reference-0', brand: 'Mykonos', name: 'Dreamscape', category: 'unisex', segments: ['Inspiraciones/Dupes'], presentations: [
+    { format: 'bottle', sizeMl: 50, image: 'mykonos-dreamscape-unisex-50ml.webp' }, { format: 'decant', sizeMl: 5, image: 'mykonos-dreamscape-unisex-decant-5ml.webp' },
+  ] },
+  { id: 'demo-mykonos-inception', brandId: 'demo-reference-0', brand: 'Mykonos', name: 'Inception', category: 'masculine', segments: ['Inspiraciones/Dupes'], presentations: [
+    { format: 'bottle', sizeMl: 50, image: 'mykonos-inception-hombre-50ml.webp' }, { format: 'decant', sizeMl: 5, image: 'mykonos-inception-hombre-decant-5ml.webp' },
+  ] },
+  { id: 'demo-reference-1', brandId: 'demo-reference-1', brand: 'JO Milano', name: 'Game of Spades King', category: 'masculine', segments: ['Inspiraciones/Dupes'], presentations: [
+    { format: 'bottle', sizeMl: 100, image: 'jo-milano-games-of-spades-king-hombre-100ml.webp' },
+  ] },
+  { id: 'demo-reference-2', brandId: 'demo-reference-2', brand: 'Bharara', name: 'Double Bleu', category: 'masculine', segments: ['Inspiraciones/Dupes'], presentations: [
+    { format: 'bottle', sizeMl: 100, image: 'bharara-double-bleu-hombre-100ml.jpeg' },
+  ] },
+  { id: 'demo-reference-3', brandId: 'demo-reference-3', brand: 'Extracto Importado', name: 'Spice Bomb', category: 'masculine', classifications: ['Nacionales'], presentations: [
+    { format: 'bottle', sizeMl: 100, image: 'extracto-importado-spice-bomb-hombre-100ml.webp' },
+  ] },
+  { id: 'demo-reference-4', brandId: 'demo-reference-4', brand: 'Yves d’Orgeval', name: 'Good Boy', category: 'masculine', classifications: ['Nacionales'], presentations: [
+    { format: 'bottle', sizeMl: 100, image: "yves-d'orgeval-good-boy-hombre-100ml.webp" },
+  ] },
+  { id: 'demo-reference-5', brandId: 'demo-reference-5', brand: 'Milano', name: '207', category: 'masculine', classifications: ['Nacionales'], segments: ['Varios', 'Low/Mid Cost'], presentations: [
+    { format: 'bottle', sizeMl: 60, image: 'milano-207-hombre-60ml.jpg' },
+  ] },
+  { id: 'demo-town-man', brandId: 'demo-town-scent', brand: 'Town Scent', name: 'Man in Black', category: 'masculine', segments: ['Varios', 'Low/Mid Cost'], presentations: [
+    { format: 'bottle', sizeMl: 100, image: 'town-scent-man-in-black-hombre-100ml.webp' },
+  ] },
+  { id: 'demo-town-perhaps', brandId: 'demo-town-scent', brand: 'Town Scent', name: 'Perhaps for Her', category: 'feminine', segments: ['Varios', 'Low/Mid Cost'], presentations: [
+    { format: 'bottle', sizeMl: 100, image: 'town-scent-perhaps-for-her-mujer-100ml.webp' },
+  ] },
 ];
-REFERENCE_EXAMPLES.forEach((example, index) => {
-  const id = `demo-reference-${index}`;
-  DEMO_FRAGRANCES.push({ id, name: `Fragancia ficticia ${index + 1}`, brand: { id, name: example.brand }, category: 'unisex', family: 'Cítrico aromático', classifications: example.classifications, segments: example.segments, isDemoOffer: index === 0, isDemoData: true, section: 'general' });
-  [...example.sizes.map((sizeMl) => ({ format: 'bottle' as const, sizeMl })), { format: 'decant' as const, sizeMl: 5 }].forEach(({ format, sizeMl }) => {
-    DEMO_PRESENTATIONS.push({ id: `${id}-${format}-${sizeMl}`, fragranceId: id, format, sizeMl, priceArs: format === 'decant' ? 8000 : 40000, currency: 'ARS', isDemoData: true });
+GENERAL_REFERENCES.forEach((reference) => {
+  DEMO_FRAGRANCES.push({ id: reference.id, name: reference.name, brand: { id: reference.brandId, name: reference.brand }, category: reference.category, classifications: reference.classifications, segments: reference.segments, isDemoData: true, section: 'general' });
+  reference.presentations.forEach(({ format, sizeMl, image }) => {
+    DEMO_PRESENTATIONS.push({ id: `${reference.id}-${format}-${sizeMl}`, fragranceId: reference.id, format, sizeMl, priceArs: null, currency: 'ARS', imageUrl: `/images/demo/CatalogoGeneraldemo/${image}`, isDemoData: true });
   });
 });
-DEMO_FRAGRANCES.find((item) => item.id === 'demo-frag-1')!.classifications = ['Diseñador'];
-DEMO_FRAGRANCES.find((item) => item.id === 'demo-frag-3')!.classifications = ['Árabes'];
-DEMO_FRAGRANCES.find((item) => item.id === 'demo-frag-2')!.segments = ['Low/Mid Cost'];
-DEMO_FRAGRANCES.find((item) => item.id === 'demo-frag-2')!.classifications = ['Varios'];
 
 // Datos aportados para referencia; no confirman disponibilidad ni precios de las presentaciones.
 const NICHE_REFERENCES: Array<{ brand: string; name: string; category: Fragrance['category']; description: string; bottleSizes: number[] }> = [
