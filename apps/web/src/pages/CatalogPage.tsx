@@ -14,6 +14,8 @@ const FORMAT_OPTIONS: Array<{ value: ProductFormat | 'all'; label: string }> = [
   { value: 'bottle', label: 'Botella completa' },
   { value: 'decant', label: 'Decant' },
 ];
+const CLASSIFICATION_ORDER = ['Diseñador', 'Árabes', 'Nacionales'];
+const SEGMENT_ORDER = ['Varios', 'Low/Mid Cost', 'Inspiraciones/Dupes'];
 
 function buildFilterParams(filters: Omit<CatalogFilters, 'section'>): URLSearchParams {
   const params = new URLSearchParams();
@@ -44,11 +46,14 @@ export function CatalogPage({ section = 'general', title, description, niche = f
     const brandId = searchParams.get('brand');
     const category = searchParams.get('category');
     const format = searchParams.get('format') as ProductFormat | 'all' | null;
+    const classification = searchParams.get('classification');
+    const segment = searchParams.get('segment');
+    const legacyVarios = classification === 'Varios' && (!segment || segment === 'Varios');
     return {
       ...DEFAULT_FILTERS,
       query,
-      classification: section === 'general' && !niche ? searchParams.get('classification') : null,
-      segment: section === 'general' && !niche ? searchParams.get('segment') : null,
+      classification: section === 'general' && !niche && !legacyVarios ? classification : null,
+      segment: section === 'general' && !niche ? (legacyVarios ? 'Varios' : segment) : null,
       sizeMl: section === 'general' && Number(searchParams.get('size')) > 0 ? Number(searchParams.get('size')) : null,
       offer: section === 'general' && searchParams.get('offer') === '1',
       brandId: section === 'general' && brandId && brandId.trim() ? brandId : null,
@@ -67,8 +72,10 @@ export function CatalogPage({ section = 'general', title, description, niche = f
     return () => { active = false; };
   }, [section, niche]);
   const brands = Array.from(new Map(options.map((item) => [item.brand.id, item.brand])).values());
-  const classifications = [...new Set(options.flatMap((item) => item.classifications ?? []))];
-  const segments = [...new Set(options.flatMap((item) => item.segments ?? []))].filter((value) => value !== 'Nicho');
+  const availableClassifications = new Set(options.flatMap((item) => item.classifications ?? []));
+  const availableSegments = new Set(options.flatMap((item) => item.segments ?? []));
+  const classifications = CLASSIFICATION_ORDER.filter((value) => availableClassifications.has(value));
+  const segments = SEGMENT_ORDER.filter((value) => availableSegments.has(value));
   const sizes = [...new Set(options.flatMap((item) => item.presentations.flatMap((presentation) => presentation.sizeMl === null ? [] : [presentation.sizeMl])))].sort((a, b) => a - b);
   const [items, setItems] = useState<FragranceWithPresentations[]>([]);
   const [loading, setLoading] = useState(true);

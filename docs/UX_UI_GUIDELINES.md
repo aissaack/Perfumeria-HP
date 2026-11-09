@@ -56,6 +56,6 @@ La familia olfativa y las notas son información descriptiva opcional para el de
 
 ## Catálogo de nicho
 
-Nicho cuenta con una sección propia en la navegación; sus productos se muestran separados del catálogo general. La demo muestra decants de 5 ml y botellas en tamaños de referencia, sin asumir disponibilidad ni precios reales. «Varios» agrupa ejemplos que no encajan en otras clasificaciones comerciales.
+Nicho cuenta con una sección propia en la navegación; sus productos se muestran separados del catálogo general. La demo muestra decants de 5 ml y botellas en tamaños de referencia, sin asumir disponibilidad ni precios reales. El segmento «Varios» agrupa ejemplos cuya clasificación comercial aún no se ha decidido.
 
 La búsqueda global consulta las secciones de productos y agrupa los resultados por sección.
