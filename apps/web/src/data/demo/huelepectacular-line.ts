@@ -17,11 +17,11 @@ const IMAGE_DIRECTORY = `${import.meta.env.BASE_URL}images/demo/perfumesHP_Ejemp
 
 const PRESENTATION_IMAGES: Record<string, { bottle: string; decant?: string }> = {
   'demo-own-black-poison-twist': { bottle: '05-black-poison-twist-100ml.jpg' },
-  'demo-own-black-poison': { bottle: '02-black-poison-100ml.jpg', decant: 'BlackPoison_decant5mlEjemplo.jpeg' },
-  'demo-own-in-your-prime': { bottle: '06-InYourPrime-100ml.jpg', decant: 'InYourPrime_decant5mlEjemplo.jpeg' },
-  'demo-own-you-are-mine': { bottle: '03-you-are-mine-100ml.jpg', decant: 'YouAreMine_decant5mlEjemplo.jpeg' },
-  'demo-own-sexy-fever': { bottle: '01-sexy-fever-100ml.jpg', decant: 'SexyFever_decant5mlEjemplo.jpeg' },
-  [FICTIONAL_UNISEX_ID]: { bottle: '04-unisex-ejemplo-100ml.jpg', decant: 'Unisex_decant5mlEjemplo.jpeg' },
+  'demo-own-black-poison': { bottle: '02-black-poison-100ml.jpg', decant: 'BlackPoison_decant5ml-blanco.png' },
+  'demo-own-in-your-prime': { bottle: '06-InYourPrime-100ml.jpg', decant: 'InYourPrime_decant5ml-blanco.png' },
+  'demo-own-you-are-mine': { bottle: '03-you-are-mine-100ml.jpg', decant: 'YouAreMine_decant5ml-blanco.png' },
+  'demo-own-sexy-fever': { bottle: '01-sexy-fever-100ml.jpg', decant: 'SexyFever_decant5ml-blanco.png' },
+  [FICTIONAL_UNISEX_ID]: { bottle: '04-unisex-ejemplo-100ml.jpg', decant: 'Unisex_decant5ml-blanco.png' },
 };
 
 // Importes ficticios, definidos únicamente para la demostración.

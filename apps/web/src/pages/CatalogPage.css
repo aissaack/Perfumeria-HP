@@ -360,6 +360,19 @@
 
 .catalog-page__layout:not(.catalog-page__layout--general) { display: flex; flex-direction: column; gap: var(--space-5); }
 
+/* En la línea propia, los filtros acompañan a las tarjetas sin seguir el desplazamiento. */
+.catalog-page--own .catalog-page__filters { position: static; }
+@media (min-width: 768px) {
+  .catalog-page--own .catalog-page__layout {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    align-items: start;
+  }
+  .catalog-page--own .catalog-page__filter-row--own { grid-template-columns: minmax(0, 1fr); }
+  .catalog-page--own .catalog-page__filters-panel { max-height: none; overflow: visible; }
+  .catalog-page--own .catalog-page__grid--own { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
 .catalog-page__niche-link, .catalog-page__intro--niche { padding: clamp(1.25rem, 4vw, 2.5rem); border-radius: var(--radius-lg); background: #302a35; color: #fff; }
 .catalog-page__niche-link { display: flex; flex-direction: column; gap: .4rem; text-decoration: none; }
 .catalog-page__niche-link strong { font-size: 1.5rem; }
