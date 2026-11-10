@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router';
+import { BrowserRouter, HashRouter, Navigate, Route, Routes, useLocation } from 'react-router';
 import { HomePage } from './pages/HomePage';
 import { CatalogPage } from './pages/CatalogPage';
 import { SearchPage } from './pages/SearchPage';
@@ -17,8 +17,9 @@ function GeneralCatalog() {
 }
 
 function App() {
+  const Router = import.meta.env.BASE_URL === '/' ? BrowserRouter : HashRouter;
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/buscar" element={<SearchPage />} />
@@ -29,7 +30,7 @@ function App() {
         <Route path="/catalogo/nicho/producto/:presentationId" element={<ProductDetailPage section="general" niche />} />
         <Route path="/catalogo/producto/:presentationId" element={<ProductDetailPage section="general" />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 

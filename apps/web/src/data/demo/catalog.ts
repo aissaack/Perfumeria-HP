@@ -68,7 +68,7 @@ const GENERAL_REFERENCES: Array<{
 GENERAL_REFERENCES.forEach((reference) => {
   DEMO_FRAGRANCES.push({ id: reference.id, name: reference.name, brand: { id: reference.brandId, name: reference.brand }, category: reference.category, classifications: reference.classifications, segments: reference.segments, isDemoData: true, section: 'general' });
   reference.presentations.forEach(({ format, sizeMl, image }) => {
-    DEMO_PRESENTATIONS.push({ id: `${reference.id}-${format}-${sizeMl}`, fragranceId: reference.id, format, sizeMl, priceArs: null, currency: 'ARS', imageUrl: `/images/demo/CatalogoGeneraldemo/${image}`, isDemoData: true });
+    DEMO_PRESENTATIONS.push({ id: `${reference.id}-${format}-${sizeMl}`, fragranceId: reference.id, format, sizeMl, priceArs: null, currency: 'ARS', imageUrl: `${import.meta.env.BASE_URL}images/demo/CatalogoGeneraldemo/${image}`, isDemoData: true });
   });
 });
 
