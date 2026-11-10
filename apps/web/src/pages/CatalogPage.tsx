@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useSearchParams } from 'react-router';
+import { Link, useLocation, useSearchParams } from 'react-router';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { OwnPresentationCard } from '../features/catalog/components/OwnPresentationCard';
@@ -41,6 +41,8 @@ export function CatalogPage({ section = 'general', title, description, niche = f
   const [filtersOpen, setFiltersOpen] = useState(false);
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
+  const restoredLocation = useRef<string | null>(null);
   const filters = useMemo<Omit<CatalogFilters, 'section'>>(() => {
     const query = searchParams.get('q') || '';
     const brandId = searchParams.get('brand');
@@ -109,6 +111,16 @@ export function CatalogPage({ section = 'general', title, description, niche = f
       cancelled = true;
     };
   }, [filters, section, niche]);
+
+  useEffect(() => {
+    const scrollY: unknown = location.state?.ownCatalogScrollY;
+    if (section !== 'own' || isLoading || error || restoredLocation.current === location.key || typeof scrollY !== 'number' || !Number.isFinite(scrollY) || scrollY < 0) return;
+    const frame = window.requestAnimationFrame(() => {
+      window.scrollTo({ top: scrollY, behavior: 'instant' });
+      restoredLocation.current = location.key;
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [section, isLoading, error, items, location.key, location.state]);
 
   const hasActiveFilters = useMemo(() => {
     return (

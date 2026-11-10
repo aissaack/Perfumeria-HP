@@ -34,3 +34,6 @@
 
 .own-presentation-card--general .own-presentation-card__brand { color: var(--text-h); font-size: 1.13rem; line-height: 1.25; font-weight: 750; overflow-wrap: anywhere; }
 .own-presentation-card--general .own-presentation-card__content h2 { font-size: 1rem; font-weight: 600; }
+
+.catalog-page--own .own-presentation-card,
+.catalog-page--own .own-presentation-card__image { background: #fff; }

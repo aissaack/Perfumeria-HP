@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import type { FragranceWithPresentations, ProductPresentation } from '../../../types/catalog';
 import { NICHE_CARD_IMAGES } from '../../../data/demo/nicheCardImages';
 import { formatArs } from '../../../utils/formatCurrency';
@@ -14,6 +14,7 @@ interface OwnPresentationCardProps {
 }
 
 export function OwnPresentationCard({ item, presentation, returnSearch, section = 'own', niche = false }: OwnPresentationCardProps) {
+  const navigate = useNavigate();
   const [failedImageUrl, setFailedImageUrl] = useState<string | null>(null);
   const format = presentation.format === 'bottle' ? 'Botella completa' : presentation.format === 'decant' ? 'Decant' : 'Presentación';
   const presentationLabel = `${format}${presentation.sizeMl !== null ? ` · ${presentation.sizeMl} ml` : ''}`;
@@ -22,10 +23,15 @@ export function OwnPresentationCard({ item, presentation, returnSearch, section 
   const params = new URLSearchParams();
   if (returnSearch) params.set('volver', returnSearch);
   const search = params.toString();
+  const detailLocation = { pathname: `${section === 'own' ? '/perfumes-huelepectacular' : niche ? '/catalogo/nicho' : '/catalogo'}/producto/${encodeURIComponent(presentation.id)}`, search: search ? `?${search}` : '' };
 
   return (
     <article className={`own-presentation-card${section === 'general' ? ' own-presentation-card--general' : ''}`}>
-      <Link className="own-presentation-card__link" to={{ pathname: `${section === 'own' ? '/perfumes-huelepectacular' : niche ? '/catalogo/nicho' : '/catalogo'}/producto/${encodeURIComponent(presentation.id)}`, search: search ? `?${search}` : '' }} aria-label={`Ver detalle de ${item.brand.name}, ${item.name}, ${presentationLabel}`}>
+      <Link className="own-presentation-card__link" to={detailLocation} onClick={(event) => {
+        if (section !== 'own' || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        navigate(detailLocation, { state: { ownCatalogScrollY: window.scrollY } });
+      }} aria-label={`Ver detalle de ${item.brand.name}, ${item.name}, ${presentationLabel}`}>
         <div className="own-presentation-card__image">
           {showImage ? <img src={imageUrl} alt="" onError={() => setFailedImageUrl(imageUrl ?? null)} /> : <span>Imagen pendiente</span>}
         </div>
