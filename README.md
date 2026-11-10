@@ -8,6 +8,12 @@ El Nivel 1 está en desarrollo en `apps/web`: incluye portada, catálogo general
 
 La tienda será independiente de Pedix. Su página pública se consulta manualmente como referencia de productos; no habrá integración, API ni sincronización con Pedix. Ver [ADR-003](docs/decisions/ADR-003-independent-store.md).
 
+## Demo en GitHub Pages
+
+El flujo de GitHub Actions compila la demo desde `main` para la subruta del repositorio y la publica mediante GitHub Pages. En ese entorno las rutas usan `#`, para permitir abrir y recargar directamente las secciones y los detalles en un alojamiento estático. La navegación local conserva sus rutas habituales.
+
+GitHub Pages debe estar configurado con GitHub Actions como origen; su disponibilidad para repositorios privados depende del plan de GitHub. La demo es ilustrativa y sus datos no representan precios ni disponibilidad en vivo.
+
 ## Desarrollo local
 
 La aplicación usa React, Vite, TypeScript, React Router, CSS y npm. Desde `apps/web`:
