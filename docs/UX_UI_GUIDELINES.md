@@ -49,3 +49,13 @@ Antes de finalizar el diseño, revisa si hay logo, colores, tipografías y fotog
 ## Responsive y calidad visual
 
 Verifica al menos un ancho móvil pequeño, un ancho móvil estándar, tablet y escritorio. Evita overflow horizontal, textos cortados, botones demasiado pequeños y saltos de layout por imágenes. Mantén tiempos de transición modestos y respeta `prefers-reduced-motion`.
+
+## Familia olfativa y notas
+
+La familia olfativa y las notas son información descriptiva opcional para el detalle de la fragancia; no se usan como filtros del catálogo. Las clasificaciones no verificadas deben identificarse como orientativas.
+
+## Catálogo de nicho
+
+Nicho cuenta con una sección propia en la navegación; sus productos se muestran separados del catálogo general. La demo muestra decants de 5 ml y botellas en tamaños de referencia, sin asumir disponibilidad ni precios reales. El segmento «Varios» agrupa ejemplos cuya clasificación comercial aún no se ha decidido.
+
+La búsqueda global consulta las secciones de productos y agrupa los resultados por sección.

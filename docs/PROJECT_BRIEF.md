@@ -41,7 +41,7 @@ Crear una demo navegable, moderna, responsive y visualmente consistente que se p
 - No es el sitio de producción ni reemplaza Pedix.
 - No se garantiza que el catálogo, precio o stock sean reales.
 - No se implementan cuentas, autenticación, administración, inventario, pedidos propios, checkout, pagos, logística ni facturación.
-- No se implementa integración de Pedix hasta confirmar condiciones y endpoint de producción.
+- No se integrará Pedix; su página pública sirve únicamente como referencia para consultas manuales de productos.
 - No se promete una mejora de conversión sin mediciones.
 
 ## 7. Métricas cualitativas de aceptación
@@ -55,4 +55,4 @@ Crear una demo navegable, moderna, responsive y visualmente consistente que se p
 
 ## 8. Incógnitas de negocio
 
-Antes de una versión comercial se deberán confirmar: logo/assets autorizados, categorías definitivas, tono de marca, canales de compra preferidos, políticas de envío y retiro, cómo se administra el catálogo, origen de precios y stock, estrategia de inventario de decants y titularidad/acceso a la tienda Pedix.
+Antes de una versión comercial se deberán confirmar: logo/assets autorizados, categorías definitivas, tono de marca, canales de compra preferidos, políticas de envío y retiro, cómo se administra el catálogo, origen de precios y stock y estrategia de inventario de decants.

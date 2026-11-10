@@ -37,7 +37,8 @@
   color: var(--text-h, #08060d);
 }
 
-.product-card__family {
+.product-card__family,
+.product-card__category {
   margin: 0;
   color: var(--text, #6b6375);
   font-size: 0.9rem;

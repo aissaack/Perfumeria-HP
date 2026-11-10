@@ -75,7 +75,7 @@ No separar en `packages/` ni agregar workspaces compartidos por anticipado si no
 - **Proveedor/repositorio de catálogo:** obtiene datos de la implementación disponible (demo ahora; API propia o integración más adelante).
 - **API propia futura:** valida entradas, aplica reglas de negocio, autoriza acciones y devuelve DTOs estables.
 - **Persistencia futura:** PostgreSQL es la fuente de verdad del catálogo propio una vez que la migración se acuerde.
-- **Integraciones futuras:** adaptadores separados del dominio. No propagar estructuras de Pedix o Mercado Pago por toda la aplicación.
+- **Integraciones futuras autorizadas:** adaptadores separados del dominio. No se integrará Pedix; una eventual integración de pagos debe mantener sus estructuras separadas.
 
 ## Contrato conceptual del producto para el Nivel 1
 

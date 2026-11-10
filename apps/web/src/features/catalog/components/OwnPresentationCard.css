@@ -1,0 +1,39 @@
+.own-presentation-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.own-presentation-card__link {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  color: var(--text-h);
+  text-decoration: none;
+}
+.own-presentation-card__link:focus-visible { outline: 3px solid var(--accent-strong); outline-offset: -3px; }
+.own-presentation-card:hover { border-color: var(--accent); box-shadow: 0 8px 24px -14px rgba(32, 42, 49, 0.45); }
+.own-presentation-card__image {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  background: var(--bg-subtle);
+  color: var(--text);
+  font-size: 0.8rem;
+}
+.own-presentation-card__image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.own-presentation-card__content { display: flex; flex: 1; flex-direction: column; gap: 0.2rem; padding: 0.75rem; }
+.own-presentation-card__content h2, .own-presentation-card__content p { margin: 0; }
+.own-presentation-card__content h2 { font-size: 1rem; line-height: 1.3; overflow-wrap: anywhere; }
+.own-presentation-card__content p, .own-presentation-card__disclaimer, .own-presentation-card__price-label { color: var(--text); font-size: 0.75rem; line-height: 1.4; }
+.own-presentation-card__price-label { margin-top: auto; padding-top: 0.4rem; }
+.own-presentation-card__content strong { font-size: 1rem; }
+
+.own-presentation-card--general .own-presentation-card__brand { color: var(--text-h); font-size: 1.13rem; line-height: 1.25; font-weight: 750; overflow-wrap: anywhere; }
+.own-presentation-card--general .own-presentation-card__content h2 { font-size: 1rem; font-weight: 600; }
+
+.catalog-page--own .own-presentation-card,
+.catalog-page--own .own-presentation-card__image { background: #fff; }

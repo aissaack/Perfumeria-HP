@@ -15,5 +15,5 @@ El Nivel 1 usará un dataset local de demostración detrás de una interfaz/repo
 
 - La demo puede desarrollarse y mostrarse sin credenciales ni dependencia externa.
 - Los componentes de React consumirán un modelo normalizado propio.
-- La futura integración con Pedix, o con una API propia, se implementará como adaptador cuando se verifique el contrato y se autorice el alcance.
+- La posibilidad de integrar Pedix mencionada originalmente queda sustituida por [ADR-003](ADR-003-independent-store.md). Una API propia futura podrá usar un adaptador cuando se autorice esa etapa.
 - Los datos ficticios deberán identificarse como tales y nunca confundirse con precios/stock actuales.

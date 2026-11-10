@@ -10,7 +10,7 @@ Lee estos documentos en este orden cuando la tarea afecte al producto o su arqui
 2. `docs/ROADMAP.md`: etapas y criterios de aceptación.
 3. `docs/ARCHITECTURE.md`: estructura prevista y separación de responsabilidades.
 4. `docs/UX_UI_GUIDELINES.md`: dirección visual y requisitos de experiencia.
-5. `docs/PEDIX_INTEGRATION.md`: límites de la integración externa.
+5. `docs/PEDIX_INTEGRATION.md`: independencia de Pedix y consulta manual de productos.
 6. `docs/DOMAIN_MODEL.md`: modelo conceptual para las etapas futuras.
 7. `docs/QUALITY_CHECKLIST.md`: verificación antes de terminar.
 
@@ -20,11 +20,11 @@ Los documentos de `docs/decisions/` registran decisiones de arquitectura ya toma
 
 **Etapa activa: Nivel 1 — Rediseño visual/prototipo.** El repositorio puede estar vacío o contener solo documentación.
 
-El primer objetivo es una interfaz de tienda atractiva, responsive, navegable y fácil de demostrar. Usa un catálogo de demostración claramente identificado como tal. No dependas de una API de Pedix hasta confirmar la URL y el acceso del entorno de producción con documentación oficial o con el propietario de la tienda.
+El primer objetivo es una interfaz de tienda atractiva, responsive, navegable y fácil de demostrar. Usa un catálogo de demostración claramente identificado como tal. La tienda será independiente de Pedix: su página pública se usa únicamente para consultas manuales sobre productos, sin API ni sincronización.
 
 No construyas todavía un sistema de administración, autenticación, base de datos propia, inventario real, pedidos propios, checkout ni pagos. Son parte de etapas posteriores.
 
-## Stack y estructura
+## Stack y estructura(NO cambiar versiones ni agregar librerías sin autorización)
 
 - **Stack objetivo a largo plazo:** PERN: PostgreSQL, Express, React y Node.js.
 - **Frontend previsto:** React + Vite + TypeScript.
@@ -38,17 +38,26 @@ La estructura técnica inicial se debe mantener sencilla. La estructura futura p
 
 ## Comandos
 
-En una copia del repositorio que todavía no tiene código, estos comandos sirven para verificar cambios de Git:
+La aplicación está en `apps/web`. Desde ese directorio:
 
 ```bash
-git status --short
-git diff --check
-git diff --stat
+npm ci
+npm run dev
+npm run lint
+npm run typecheck
+npm run build
+npm run preview
 ```
 
-Cuando se cree el scaffold de la aplicación, actualiza esta sección con los comandos **reales** definidos en `package.json`, y verifica que funcionen. No afirmes que se ejecutaron comandos de build, lint, test o typecheck si no existen o no se ejecutaron.
+El script `typecheck` comprueba la aplicación y la configuración de Vite. No hay script de tests. No afirmes que se ejecutaron verificaciones que no se hayan ejecutado.
 
 Como mínimo, al existir la aplicación, el proyecto debería ofrecer scripts copiables para desarrollo, compilación, lint y verificación de tipos. Agrega tests automatizados donde aporten valor y documenta su comando exacto.
+
+## Flujo de trabajo con Git
+
+Antes de crear o cambiar ramas, crear commits, integrar cambios o publicarlos, consulta `docs/GIT_WORKFLOW.md` y revisa el estado de Git.
+
+No crees commits ni ramas, cambies de rama, fusiones o publiques cambios sin autorización explícita del usuario.
 
 ## Convenciones
 
@@ -67,7 +76,7 @@ Como mínimo, al existir la aplicación, el proyecto debería ofrecer scripts co
 - No confundas el segmento del producto (marca propia, diseñador, árabe, nicho, low/mid cost) con el formato (botella, decant de 5 ml, decant de 10 ml, etc.).
 - El stock de una botella y el de los decants que se extraen de ella podrían estar relacionados. No inventes la regla de inventario: deberá confirmarse con el negocio antes del Nivel 2/3.
 - El precio y la disponibilidad mostrados en el prototipo no representan datos en vivo.
-- La documentación pública de Pedix consultada muestra una URL de ejemplo de desarrollo e indica que no es la URL de producción. Nunca uses un endpoint de desarrollo ni inventes un endpoint de producción. Ver `docs/PEDIX_INTEGRATION.md`.
+- No integrar Pedix ni consumir sus APIs. La página pública solo sirve para consultas manuales sobre productos. Ver `docs/PEDIX_INTEGRATION.md` y ADR-003.
 - No copies imágenes, logos o textos de terceros sin confirmar que pueden utilizarse. Para la demo, usa assets autorizados o placeholders visuales.
 
 ## Forma de trabajar
@@ -104,7 +113,7 @@ Como mínimo, al existir la aplicación, el proyecto debería ofrecer scripts co
 
 - Subir secretos o archivos `.env` con valores reales.
 - Tratar los datos de demostración como catálogo/precios/stock reales.
-- Usar la URL de desarrollo de Pedix como URL de producción.
+- Integrar Pedix o consumir sus APIs.
 - Implementar un proceso de pago falso que aparente haber cobrado.
 - Eliminar archivos o cambios del usuario sin necesidad explícita.
 - Afirmar que una prueba pasó sin haberla ejecutado.

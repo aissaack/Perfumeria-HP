@@ -1,39 +1,30 @@
 # Huelepectacular
 
-Propuesta de rediseño para una tienda de perfumería con una ruta de evolución desde un prototipo visual hasta un e-commerce propio.
+Prototipo de rediseño de una perfumería, con una evolución prevista hacia una tienda independiente.
 
-## Objetivo actual
+## Estado actual
 
-Construir el **Nivel 1 — Rediseño visual**: una experiencia de catálogo más cuidada, clara y usable en móvil, con navegación por categorías, búsqueda y fichas/tarjetas de producto. El prototipo usa datos de demostración mientras se verifica si puede integrarse con el catálogo real de Pedix.
+El Nivel 1 está en desarrollo en `apps/web`: incluye portada, catálogo general y sección de línea propia, búsqueda, filtros y presentaciones con precios ficticios de demostración. La línea propia ofrece páginas de detalle e imágenes de ejemplo para los productos documentados en `docs/catalogos/LINEA_HUELEPECTACULAR.md` y un producto ficticio; las familias reales son orientativas y están pendientes de validación. Los precios y la disponibilidad no son datos en vivo. Los criterios deseados para el catálogo general están en [GENERAL_CATALOG_SPECIFICATIONS.md](docs/catalogos/GENERAL_CATALOG_SPECIFICATIONS.md).
 
-## Evolución prevista
+La tienda será independiente de Pedix. Su página pública se consulta manualmente como referencia de productos; no habrá integración, API ni sincronización con Pedix. Ver [ADR-003](docs/decisions/ADR-003-independent-store.md).
 
-1. **Nivel 1 — Rediseño:** interfaz, navegación y datos de demostración; sin checkout ni administración.
-2. **Nivel 2 — Tienda personalizada:** API propia, PostgreSQL, gestión del catálogo y administración.
-3. **Nivel 3 — E-commerce completo:** carrito, pedidos, pagos, envíos y control de inventario.
+## Desarrollo local
 
-## Stack objetivo
+La aplicación usa React, Vite, TypeScript, React Router, CSS y npm. Desde `apps/web`:
 
-- Frontend: React, Vite y TypeScript.
-- Backend futuro: Node.js, Express y TypeScript.
-- Base de datos futura: PostgreSQL.
-- ORM futuro: Prisma, cuando el proyecto necesite persistencia propia.
+```bash
+npm ci
+npm run dev
+npm run lint
+npm run typecheck
+npm run build
+npm run preview
+```
 
-No implica que todas estas tecnologías deban instalarse en el Nivel 1. Consultá `docs/ROADMAP.md` y `docs/ARCHITECTURE.md`.
+`typecheck` comprueba la aplicación y la configuración de Vite con TypeScript en modo estricto. No hay un script de tests automatizados.
 
-## Documentación
+## Evolución y documentación
 
-- [`AGENTS.md`](AGENTS.md): instrucciones permanentes para OpenCode.
-- [`docs/PROJECT_BRIEF.md`](docs/PROJECT_BRIEF.md): alcance y objetivos del producto.
-- [`docs/ROADMAP.md`](docs/ROADMAP.md): etapas y criterios de aceptación.
-- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md): arquitectura y estructura prevista.
-- [`docs/DOMAIN_MODEL.md`](docs/DOMAIN_MODEL.md): conceptos y entidades futuras.
-- [`docs/UX_UI_GUIDELINES.md`](docs/UX_UI_GUIDELINES.md): principios de diseño.
-- [`docs/PEDIX_INTEGRATION.md`](docs/PEDIX_INTEGRATION.md): integración y restricciones conocidas.
-- [`docs/QUALITY_CHECKLIST.md`](docs/QUALITY_CHECKLIST.md): controles de calidad.
-- [`docs/decisions/`](docs/decisions/): decisiones de arquitectura.
-- [`docs/FIRST_SESSION_PROMPT.md`](docs/FIRST_SESSION_PROMPT.md): prompt para comenzar con OpenCode.
+El Nivel 2 prevé una API propia con Node.js y Express, PostgreSQL y Prisma; el Nivel 3 contempla pedidos, pagos e inventario. Su implementación requiere autorización y definiciones de negocio.
 
-## Estado del repositorio
-
-La documentación define la dirección del proyecto; no significa que la aplicación ya esté implementada. El siguiente paso es abrir el repositorio con OpenCode, pedirle que lea la documentación y proponga un plan inicial antes de generar el scaffold.
+Consultá [AGENTS.md](AGENTS.md), el [brief](docs/PROJECT_BRIEF.md), el [roadmap](docs/ROADMAP.md), la [arquitectura](docs/ARCHITECTURE.md), las [guías de UX/UI](docs/UX_UI_GUIDELINES.md), el [modelo de dominio](docs/DOMAIN_MODEL.md), la [decisión sobre Pedix](docs/PEDIX_INTEGRATION.md), el [checklist](docs/QUALITY_CHECKLIST.md) y las [decisiones de arquitectura](docs/decisions/).

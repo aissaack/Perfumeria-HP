@@ -1,17 +1,11 @@
-# Contenido del paquete
+# Contenido del repositorio
 
-Este paquete contiene documentación y configuración inicial; no incluye código de la aplicación ni datos reales de Huelepectacular.
+- `apps/web/`: aplicación React, Vite y TypeScript con catálogo local de demostración, estilos y archivos de configuración npm.
+- `AGENTS.md`: instrucciones de trabajo y comandos del proyecto.
+- `README.md`: estado, ejecución local y enlaces a la documentación.
+- `docs/`: alcance, roadmap, arquitectura, diseño, modelo de dominio, calidad, flujo Git y decisiones.
+- `docs/catalogos/LINEA_HUELEPECTACULAR.md`: referencia de productos para una implementación futura; no modifica el catálogo de la aplicación.
+- `docs/catalogos/GENERAL_CATALOG_SPECIFICATIONS.md`: criterios deseados para el catálogo general y sus filtros de demostración.
+- `.gitignore` y `.editorconfig`: configuración del repositorio.
 
-- `AGENTS.md`: instrucciones permanentes para OpenCode.
-- `README.md`: presentación del repositorio.
-- `.gitignore`, `.editorconfig`: configuración inicial.
-- `docs/PROJECT_BRIEF.md`: objetivo, usuarios, alcance y exclusiones.
-- `docs/ROADMAP.md`: niveles y criterios de aceptación.
-- `docs/ARCHITECTURE.md`: stack objetivo y arquitectura progresiva.
-- `docs/DOMAIN_MODEL.md`: conceptos de catálogo y e-commerce futuro.
-- `docs/UX_UI_GUIDELINES.md`: dirección visual y reglas de experiencia.
-- `docs/PEDIX_INTEGRATION.md`: estado conocido y precauciones de integración.
-- `docs/QUALITY_CHECKLIST.md`: checklist de aceptación.
-- `docs/decisions/ADR-001-postgresql.md`: decisión sobre base de datos.
-- `docs/decisions/ADR-002-data-source-level-1.md`: decisión sobre datos de demo.
-- `docs/FIRST_SESSION_PROMPT.md`: prompt inicial listo para OpenCode.
+La aplicación es un prototipo de Nivel 1. La página pública de Pedix es una referencia para consultas manuales sobre productos; la tienda será independiente y no se integrará con Pedix.

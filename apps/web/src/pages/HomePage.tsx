@@ -4,11 +4,11 @@ import { Footer } from '../components/Footer';
 import './HomePage.css';
 
 const QUICK_ACCESS = [
-  { label: 'Diseñador', to: '/catalogo?brand=demo-brand-1', filterKey: 'brandId', filterValue: 'demo-brand-1' },
-  { label: 'Árabes', to: '/catalogo?family=Oriental%20amaderado', filterKey: 'family', filterValue: 'Oriental amaderado' },
-  { label: 'Nicho', to: '/catalogo?brand=demo-brand-4', filterKey: 'brandId', filterValue: 'demo-brand-4' },
+  { label: 'Diseñador', to: '/catalogo?classification=Dise%C3%B1ador' },
+  { label: 'Árabes', to: '/catalogo?classification=%C3%81rabes', filterKey: 'family', filterValue: 'Oriental amaderado' },
+  { label: 'Nicho', to: '/catalogo/nicho', filterKey: 'brandId', filterValue: 'demo-brand-4' },
   { label: 'Decants', to: '/catalogo?format=decant', filterKey: 'format', filterValue: 'decant' },
-  { label: 'Alternativas económicas', to: '/catalogo', filterKey: null, filterValue: null },
+  { label: 'Alternativas económicas', to: '/catalogo?segment=Low%2FMid+Cost', filterKey: null, filterValue: null },
 ];
 
 export function HomePage() {
@@ -71,7 +71,7 @@ export function HomePage() {
             <div>
               <h2 className="home-note__title">Demo comercial, sin compra real</h2>
               <p className="home-note__text">
-                Esta propuesta muestra una mejora en presentación, jerarquía y descubrimiento. Los precios, marcas y productos son ficticios. La compra se realizaría por el canal acordado.
+                Esta propuesta muestra una mejora en presentación, jerarquía y descubrimiento. Los precios son ficticios y el catálogo incluye datos de demostración; no refleja disponibilidad actual. La compra se realizaría por el canal acordado.
               </p>
             </div>
             <Link to="/catalogo" className="home-hero__cta">
